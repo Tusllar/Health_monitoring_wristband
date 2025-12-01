@@ -7,6 +7,7 @@
 #include "max30100.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
+#include <inttypes.h>
 
 static const char *TAG = "HTTP_SERVER";
 static httpd_handle_t server = NULL;
@@ -14,12 +15,18 @@ static httpd_handle_t server = NULL;
 extern const uint8_t index_html_start[] asm("_binary_index_html_start");
 extern const uint8_t index_html_end[] asm("_binary_index_html_end");
 
-// External shared sensor data (from main) - matches max30100_reading_t structure
+// External shared sensor data (from main)
+// MUST match the definition in main/health_monitoring_wristband.c
 typedef struct {
     float heart_rate;
     float spo2;
     bool valid;
     uint32_t last_update;
+    // MPU6050 data
+    float accel_x, accel_y, accel_z;
+    float gyro_x, gyro_y, gyro_z;
+    float mpu_temp;
+    bool mpu_valid;
 } shared_sensor_data_t;
 
 extern shared_sensor_data_t shared_data;
@@ -57,13 +64,35 @@ static esp_err_t sensor_handler(httpd_req_t *req)
         ESP_LOGW(TAG, "Failed to acquire mutex or mutex is NULL");
     }
     
-    // Trả về JSON theo cấu trúc max30100_reading_t: {heart_rate, spo2, valid}
-    char resp[128];
+    // Trả về JSON: dữ liệu MAX30100 + MPU6050
+    // {
+    //   "heart_rate": ...,
+    //   "spo2": ...,
+    //   "valid": true/false,
+    //   "last_update": ...,
+    //   "accel": {"x":...,"y":...,"z":...},
+    //   "gyro": {"x":...,"y":...,"z":...},
+    //   "mpu_temp": ...,
+    //   "mpu_valid": true/false
+    // }
+    char resp[256];
     int len = snprintf(resp, sizeof(resp), 
-             "{\"heart_rate\":%.1f,\"spo2\":%.1f,\"valid\":%s}",
+             "{\"heart_rate\":%.1f,"
+             "\"spo2\":%.1f,"
+             "\"valid\":%s,"
+             "\"last_update\":%" PRIu32 ","
+             "\"accel\":{\"x\":%.3f,\"y\":%.3f,\"z\":%.3f},"
+             "\"gyro\":{\"x\":%.3f,\"y\":%.3f,\"z\":%.3f},"
+             "\"mpu_temp\":%.2f,"
+             "\"mpu_valid\":%s}",
              local_data.heart_rate,
              local_data.spo2,
-             local_data.valid ? "true" : "false");
+             local_data.valid ? "true" : "false",
+             local_data.last_update,
+             local_data.accel_x, local_data.accel_y, local_data.accel_z,
+             local_data.gyro_x, local_data.gyro_y, local_data.gyro_z,
+             local_data.mpu_temp,
+             local_data.mpu_valid ? "true" : "false");
     
     if (len < 0 || len >= sizeof(resp)) {
         ESP_LOGE(TAG, "Failed to format JSON response");

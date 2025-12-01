@@ -60,6 +60,9 @@ typedef struct {
 shared_sensor_data_t shared_data = {0};
 SemaphoreHandle_t data_mutex = NULL;
 
+// Task handle for buzzer task to use Task Notifications
+static TaskHandle_t buzzer_task_handle = NULL;
+
 
 
 // ========================= MAX30100 TASK =========================
@@ -133,6 +136,12 @@ void mpu6050_task(void *pvParameters)
                 shared_data.mpu_valid = true;
                 xSemaphoreGive(data_mutex);
             }
+
+            // Notify buzzer task that new motion data is available
+            if (buzzer_task_handle != NULL) {
+                xTaskNotifyGive(buzzer_task_handle);
+            }
+
             error_count = 0; // Reset error counter on success
             logged_initial_error = false;
         } else {
@@ -373,6 +382,10 @@ static void buzzer_task(void *pvParameters)
     uint32_t motion_alert_cooldown = 0;
     
     while (1) {
+        // Wait for notification from MPU6050 task (new motion data),
+        // or timeout periodically to avoid getting stuck if notifications stop.
+        ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(200));
+
         shared_sensor_data_t local_data = {0};
         bool alert_triggered = false;
         const char *alert_reason = NULL;
@@ -439,7 +452,7 @@ static void buzzer_task(void *pvParameters)
                 alert_count = 0;
             }
             gpio_set_level(BUZZER_GPIO, 0);  // Tắt buzzer
-            vTaskDelay(pdMS_TO_TICKS(100));  // Kiểm tra mỗi 100ms (10Hz) để phát hiện motion nhanh
+            // Không cần delay lớn ở đây vì task đã chờ bằng Task Notification phía trên.
         }
     }
 }
@@ -534,7 +547,7 @@ void app_main(void)
     xTaskCreate(display_task, "display_task", 4096, NULL, 5, NULL);
     xTaskCreate(max30100_task, "max30100_task", 4096, NULL, 4, NULL);
     xTaskCreate(mpu6050_task, "mpu6050_task", 4096, NULL, 4, NULL);
-    xTaskCreate(buzzer_task, "buzzer_task", 6144, NULL, 3, NULL);  // Tăng stack size cho motion detection
+    xTaskCreate(buzzer_task, "buzzer_task", 6144, NULL, 3, &buzzer_task_handle);  // Lưu handle để dùng Task Notification
     xTaskCreate(http_server_task, "http_server_task", 4096, NULL, 2, NULL);
 
 

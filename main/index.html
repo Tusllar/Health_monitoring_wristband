@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
+    <head>
+        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESP32-C3 Health Monitor</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <title>ESP32-C3 Health Monitor</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -184,6 +185,73 @@
             border: 1px solid var(--border-color);
         }
 
+        .motion-card {
+            margin-top: 30px;
+        }
+
+        .motion-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1.2fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .motion-values {
+            background: rgba(15,23,42,0.8);
+            border-radius: 15px;
+            padding: 15px 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .motion-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .motion-label {
+            color: var(--text-secondary);
+        }
+
+        .motion-value {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .motion-valid {
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .motion-valid.ok {
+            color: var(--success-color);
+        }
+
+        .motion-valid.offline {
+            color: var(--danger-color);
+        }
+
+        .motion-3d-container {
+            background: radial-gradient(circle at top, #1f2937, #020617);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .motion-3d-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: rgba(15,23,42,0.7);
+            padding: 6px 10px;
+            border-radius: 999px;
+        }
+
         .info-item {
             text-align: center;
         }
@@ -263,6 +331,10 @@
                 flex-direction: column;
                 gap: 15px;
             }
+
+            .motion-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -327,6 +399,51 @@
                     <div class="info-value" id="lastUpdate">--:--:--</div>
                 </div>
             </div>
+
+            <div class="card motion-card">
+                <h3><i class="fas fa-running"></i> Motion Monitor (MPU6050)</h3>
+                <div class="motion-grid">
+                    <div class="motion-values">
+                        <div class="motion-row">
+                            <span class="motion-label">Accel X (g)</span>
+                            <span class="motion-value" id="accelX">--</span>
+                        </div>
+                        <div class="motion-row">
+                            <span class="motion-label">Accel Y (g)</span>
+                            <span class="motion-value" id="accelY">--</span>
+                        </div>
+                        <div class="motion-row">
+                            <span class="motion-label">Accel Z (g)</span>
+                            <span class="motion-value" id="accelZ">--</span>
+                        </div>
+                        <div class="motion-row">
+                            <span class="motion-label">Gyro X (°/s)</span>
+                            <span class="motion-value" id="gyroX">--</span>
+                        </div>
+                        <div class="motion-row">
+                            <span class="motion-label">Gyro Y (°/s)</span>
+                            <span class="motion-value" id="gyroY">--</span>
+                        </div>
+                        <div class="motion-row">
+                            <span class="motion-label">Gyro Z (°/s)</span>
+                            <span class="motion-value" id="gyroZ">--</span>
+                        </div>
+                        <div class="motion-row">
+                            <span class="motion-label">Temp (°C)</span>
+                            <span class="motion-value" id="mpuTemp">--</span>
+                        </div>
+                        <div class="motion-valid offline" id="mpuStatus">
+                            Motion sensor offline
+                        </div>
+                    </div>
+                    <div class="motion-3d-container">
+                        <div id="motion3d"></div>
+                        <div class="motion-3d-overlay">
+                            Mô phỏng 3D hướng cổ tay từ gia tốc kế
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -345,6 +462,10 @@
         let updateRate = 500;
         let maxDataPoints = 50;
 
+        // 3D motion visualization (Three.js)
+        let motionScene, motionCamera, motionRenderer, motionCube;
+        let lastAccel = { x: 0, y: 0, z: 1 };
+
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Page loaded, initializing...');
@@ -352,6 +473,7 @@
             getDeviceIP();
             initChart();
             initPerformanceControls();
+            initMotion3D();
             startHealthUpdates();
             console.log('Initialization complete');
         });
@@ -580,6 +702,9 @@
                         if (data.spo2 >= 70 && data.spo2 <= 100) {
                             updateChartData(data.heart_rate || 0, data.spo2, timestamp);
                         }
+
+                        // Cập nhật thông tin motion (MPU6050)
+                        updateMotionData(data);
                         
                         updateConnectionStatus('connected', 'Đã kết nối');
                     } else {
@@ -596,6 +721,125 @@
                     document.getElementById('sensorStatus').style.color = '#ef4444';
                     updateConnectionStatus('disconnected', 'Mất kết nối');
                 });
+        }
+
+        // Khởi tạo 3D scene cho motion
+        function initMotion3D() {
+            const container = document.getElementById('motion3d');
+            if (!container || typeof THREE === 'undefined') {
+                console.warn('Three.js or container not available, skipping 3D motion');
+                return;
+            }
+
+            const width = container.clientWidth || container.offsetWidth || 300;
+            const height = container.clientHeight || container.offsetHeight || 250;
+
+            motionScene = new THREE.Scene();
+            motionCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+            motionCamera.position.set(0, 0, 5);
+
+            motionRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            motionRenderer.setSize(width, height);
+            container.appendChild(motionRenderer.domElement);
+
+            const geometry = new THREE.BoxGeometry(1.5, 0.5, 2.5);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x3b82f6,
+                metalness: 0.3,
+                roughness: 0.5
+            });
+            motionCube = new THREE.Mesh(geometry, material);
+            motionScene.add(motionCube);
+
+            // Light
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(3, 4, 5);
+            motionScene.add(ambientLight);
+            motionScene.add(dirLight);
+
+            // Simple animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                motionRenderer.render(motionScene, motionCamera);
+            }
+            animate();
+        }
+
+        // Cập nhật dữ liệu motion & mô phỏng 3D
+        function updateMotionData(data) {
+            const hasMPU =
+                data &&
+                typeof data.accel === 'object' &&
+                typeof data.accel.x === 'number' &&
+                typeof data.accel.y === 'number' &&
+                typeof data.accel.z === 'number';
+
+            const accelXEl = document.getElementById('accelX');
+            const accelYEl = document.getElementById('accelY');
+            const accelZEl = document.getElementById('accelZ');
+            const gyroXEl = document.getElementById('gyroX');
+            const gyroYEl = document.getElementById('gyroY');
+            const gyroZEl = document.getElementById('gyroZ');
+            const tempEl = document.getElementById('mpuTemp');
+            const statusEl = document.getElementById('mpuStatus');
+
+            if (!hasMPU || !data.mpu_valid) {
+                if (statusEl) {
+                    statusEl.textContent = 'Motion sensor offline hoặc không có dữ liệu';
+                    statusEl.classList.remove('ok');
+                    statusEl.classList.add('offline');
+                }
+                if (accelXEl) accelXEl.textContent = '--';
+                if (accelYEl) accelYEl.textContent = '--';
+                if (accelZEl) accelZEl.textContent = '--';
+                if (gyroXEl) gyroXEl.textContent = '--';
+                if (gyroYEl) gyroYEl.textContent = '--';
+                if (gyroZEl) gyroZEl.textContent = '--';
+                if (tempEl) tempEl.textContent = '--';
+                return;
+            }
+
+            const ax = data.accel.x;
+            const ay = data.accel.y;
+            const az = data.accel.z;
+            const gx = (data.gyro && typeof data.gyro.x === 'number') ? data.gyro.x : 0;
+            const gy = (data.gyro && typeof data.gyro.y === 'number') ? data.gyro.y : 0;
+            const gz = (data.gyro && typeof data.gyro.z === 'number') ? data.gyro.z : 0;
+
+            if (accelXEl) accelXEl.textContent = ax.toFixed(2);
+            if (accelYEl) accelYEl.textContent = ay.toFixed(2);
+            if (accelZEl) accelZEl.textContent = az.toFixed(2);
+            if (gyroXEl) gyroXEl.textContent = gx.toFixed(1);
+            if (gyroYEl) gyroYEl.textContent = gy.toFixed(1);
+            if (gyroZEl) gyroZEl.textContent = gz.toFixed(1);
+            if (tempEl && typeof data.mpu_temp === 'number') {
+                tempEl.textContent = data.mpu_temp.toFixed(1);
+            }
+
+            if (statusEl) {
+                statusEl.textContent = 'Motion sensor online';
+                statusEl.classList.remove('offline');
+                statusEl.classList.add('ok');
+            }
+
+            // Cập nhật hướng cube 3D dựa trên vector trọng lực từ accel
+            if (motionCube) {
+                // Chuẩn hóa vector accel
+                const len = Math.sqrt(ax * ax + ay * ay + az * az) || 1.0;
+                const nx = ax / len;
+                const ny = ay / len;
+                const nz = az / len;
+
+                lastAccel = { x: nx, y: ny, z: nz };
+
+                // Gần đúng: pitch & roll từ accel (giả sử z ~ trọng lực)
+                const pitch = Math.atan2(-nx, Math.sqrt(ny * ny + nz * nz)); // quay quanh Y
+                const roll = Math.atan2(ny, nz); // quay quanh X
+
+                motionCube.rotation.x = roll;
+                motionCube.rotation.z = pitch;
+            }
         }
 
         // Cập nhật dữ liệu đồ thị
