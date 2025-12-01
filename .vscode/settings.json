@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "oled_driver.h": "c",
+        "string.h": "c"
+    }
+}

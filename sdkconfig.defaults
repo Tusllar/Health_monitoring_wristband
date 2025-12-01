@@ -1,0 +1,15 @@
+# sdkconfig.defaults
+# Cấu hình cho ESP32-C3 Mini-1
+
+# FreeRTOS Configuration
+CONFIG_FREERTOS_HZ=1000
+
+# ESP System Settings
+CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT=y
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
+
+# Log level
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# I2C Configuration
+CONFIG_I2C_ENABLE_DEBUG_LOG=n

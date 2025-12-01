@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32-C3 Health Monitor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+        }
+
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .health-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .health-value-box {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .health-value {
+            font-size: 3em;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 10px 0;
+        }
+
+        .health-unit {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .status-text {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin: 15px 0;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+            margin: 25px 0;
+            background: rgba(255,255,255,0.02);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .connected {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            border: 1px solid var(--success-color);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .disconnected {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: 1px solid var(--danger-color);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+
+        .device-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .chart-performance {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .performance-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .control-group input[type="range"] {
+            width: 100px;
+        }
+
+        .control-group input[type="number"] {
+            width: 60px;
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .health-display {
+                grid-template-columns: 1fr;
+            }
+            
+            .health-value {
+                font-size: 2.5em;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .device-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">
+        <i class="fas fa-wifi"></i>
+        <span id="statusText">Đang kết nối...</span>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-heartbeat"></i> ESP32-C3 Health Monitor</h1>
+            <p>Real-time Heart Rate & SpO2 Monitoring System</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="card">
+            <h3><i class="fas fa-heartbeat"></i> Health Monitor (MAX30100)</h3>
+            
+            <div class="health-display">
+                <div class="health-value-box">
+                    <div class="health-value" id="heartRate">--</div>
+                    <div class="health-unit">BPM</div>
+                </div>
+                <div class="health-value-box">
+                    <div class="health-value" id="spo2Value">--</div>
+                    <div class="health-unit">SpO2 %</div>
+                </div>
+            </div>
+            
+            <div class="status-text" id="sensorStatus">Đang chờ dữ liệu...</div>
+
+            <div class="chart-performance">
+                <h4><i class="fas fa-chart-line"></i> Performance Controls</h4>
+                <div class="performance-controls">
+                    <div class="control-group">
+                        <label>Update Rate:</label>
+                        <input type="range" id="updateRateSlider" min="100" max="2000" value="500" step="100">
+                        <input type="number" id="updateRateValue" value="500" min="100" max="2000">
+                        <span>ms</span>
+                    </div>
+                    <div class="control-group">
+                        <label>Data Points:</label>
+                        <input type="range" id="dataPointsSlider" min="10" max="100" value="50" step="5">
+                        <input type="number" id="dataPointsValue" value="50" min="10" max="100">
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="healthChart"></canvas>
+            </div>
+
+            <div class="device-info">
+                <div class="info-item">
+                    <div class="info-label">IP Address</div>
+                    <div class="info-value" id="deviceIP">Đang lấy...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Cập nhật cuối</div>
+                    <div class="info-value" id="lastUpdate">--:--:--</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p><i class="fas fa-code"></i> ESP32-C3 Health Monitor</p>
+        <p><i class="fas fa-heartbeat"></i> Real-time Heart Rate & SpO2 Monitoring</p>
+    </footer>
+
+    <script>
+        let deviceIP = '';
+        let healthChart;
+        let heartRateData = [];
+        let spo2Data = [];
+        let timeLabels = [];
+        let updateInterval;
+        let updateRate = 500;
+        let maxDataPoints = 50;
+
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, initializing...');
+            updateConnectionStatus('connected', 'Đã kết nối');
+            getDeviceIP();
+            initChart();
+            initPerformanceControls();
+            startHealthUpdates();
+            console.log('Initialization complete');
+        });
+
+        // Khởi tạo điều khiển hiệu suất
+        function initPerformanceControls() {
+            const updateRateSlider = document.getElementById('updateRateSlider');
+            const updateRateValue = document.getElementById('updateRateValue');
+            const dataPointsSlider = document.getElementById('dataPointsSlider');
+            const dataPointsValue = document.getElementById('dataPointsValue');
+
+            updateRateSlider.addEventListener('input', function() {
+                updateRate = parseInt(this.value);
+                updateRateValue.value = updateRate;
+                restartHealthUpdates();
+            });
+
+            updateRateValue.addEventListener('change', function() {
+                updateRate = parseInt(this.value);
+                updateRateSlider.value = updateRate;
+                restartHealthUpdates();
+            });
+
+            dataPointsSlider.addEventListener('input', function() {
+                maxDataPoints = parseInt(this.value);
+                dataPointsValue.value = maxDataPoints;
+                trimDataPoints();
+            });
+
+            dataPointsValue.addEventListener('change', function() {
+                maxDataPoints = parseInt(this.value);
+                dataPointsSlider.value = maxDataPoints;
+                trimDataPoints();
+            });
+        }
+
+        // Khởi tạo đồ thị
+        function initChart() {
+            const ctx = document.getElementById('healthChart').getContext('2d');
+            
+            Chart.defaults.font.family = 'Segoe UI';
+            Chart.defaults.font.size = 12;
+            Chart.defaults.color = '#cbd5e1';
+            Chart.defaults.plugins.legend.display = true;
+            
+            healthChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: timeLabels,
+                    datasets: [{
+                        label: 'Heart Rate (BPM)',
+                        data: heartRateData,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'SpO2 (%)',
+                        data: spo2Data,
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 0 },
+                    interaction: { intersect: false, mode: 'index' },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: false,
+                            min: 40,
+                            max: 120,
+                            title: {
+                                display: true,
+                                text: 'Heart Rate (BPM)',
+                                color: '#ef4444'
+                            },
+                            grid: {
+                                color: 'rgba(203, 213, 225, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#ef4444',
+                                font: { size: 12 }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: false,
+                            min: 70,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'SpO2 (%)',
+                                color: '#06b6d4'
+                            },
+                            grid: { drawOnChartArea: false },
+                            ticks: {
+                                color: '#06b6d4',
+                                font: { size: 12 }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(203, 213, 225, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#cbd5e1',
+                                font: { size: 11 },
+                                maxTicksLimit: 8
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            backgroundColor: 'rgba(30, 41, 59, 0.9)',
+                            titleColor: '#06b6d4',
+                            bodyColor: '#f8fafc',
+                            borderColor: '#06b6d4',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cập nhật trạng thái kết nối
+        function updateConnectionStatus(status, text) {
+            const statusElement = document.getElementById('connectionStatus');
+            const statusTextElement = document.getElementById('statusText');
+            statusElement.className = `connection-status ${status}`;
+            statusTextElement.textContent = text;
+        }
+
+        // Lấy IP của thiết bị
+        function getDeviceIP() {
+            deviceIP = window.location.hostname || window.location.host;
+            document.getElementById('deviceIP').textContent = deviceIP;
+            console.log('Device IP:', deviceIP);
+        }
+
+        // Bắt đầu cập nhật dữ liệu health
+        function startHealthUpdates() {
+            updateHealth();
+            updateInterval = setInterval(updateHealth, updateRate);
+        }
+
+        // Khởi động lại cập nhật health
+        function restartHealthUpdates() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+            startHealthUpdates();
+        }
+
+        // Cập nhật dữ liệu health
+        function updateHealth() {
+            if (!deviceIP) {
+                console.warn('Device IP not set, retrying...');
+                getDeviceIP();
+                if (!deviceIP) return;
+            }
+            
+            console.log('Fetching data from /sensor...');
+            fetch('/sensor')
+                .then(response => {
+                    console.log('Response status:', response.status, response.statusText);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Received data:', data);
+                    const timestamp = new Date().toLocaleTimeString();
+                    
+                    if (data && typeof data.heart_rate !== 'undefined' && typeof data.spo2 !== 'undefined') {
+                        // Hiển thị Heart Rate
+                        if (data.heart_rate > 0 && data.valid) {
+                            document.getElementById('heartRate').textContent = data.heart_rate.toFixed(0);
+                        } else {
+                            document.getElementById('heartRate').textContent = '--';
+                        }
+                        
+                        // Hiển thị SpO2 nếu có giá trị hợp lệ (70-100)
+                        if (data.spo2 >= 70 && data.spo2 <= 100) {
+                            document.getElementById('spo2Value').textContent = data.spo2.toFixed(1);
+                        } else {
+                            document.getElementById('spo2Value').textContent = '--';
+                        }
+                        
+                        // Cập nhật status
+                        if (data.valid) {
+                            document.getElementById('sensorStatus').textContent = 'Dữ liệu hợp lệ';
+                            document.getElementById('sensorStatus').style.color = '#10b981';
+                        } else if (data.spo2 >= 70 && data.spo2 <= 100) {
+                            document.getElementById('sensorStatus').textContent = 'Đang đo SpO2... (chờ Heart Rate)';
+                            document.getElementById('sensorStatus').style.color = '#f59e0b';
+                        } else {
+                            document.getElementById('sensorStatus').textContent = 'Đang chờ ngón tay...';
+                            document.getElementById('sensorStatus').style.color = '#f59e0b';
+                        }
+                        
+                        document.getElementById('lastUpdate').textContent = timestamp;
+                        
+                        // Cập nhật chart nếu có dữ liệu hợp lệ
+                        if (data.spo2 >= 70 && data.spo2 <= 100) {
+                            updateChartData(data.heart_rate || 0, data.spo2, timestamp);
+                        }
+                        
+                        updateConnectionStatus('connected', 'Đã kết nối');
+                    } else {
+                        console.warn('Invalid data format:', data);
+                        document.getElementById('heartRate').textContent = '--';
+                        document.getElementById('spo2Value').textContent = '--';
+                        document.getElementById('sensorStatus').textContent = 'Dữ liệu không hợp lệ';
+                        document.getElementById('sensorStatus').style.color = '#ef4444';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error reading sensor data:', error);
+                    document.getElementById('sensorStatus').textContent = 'Lỗi kết nối: ' + error.message;
+                    document.getElementById('sensorStatus').style.color = '#ef4444';
+                    updateConnectionStatus('disconnected', 'Mất kết nối');
+                });
+        }
+
+        // Cập nhật dữ liệu đồ thị
+        function updateChartData(heartRate, spo2, timestamp) {
+            heartRateData.push(heartRate);
+            spo2Data.push(spo2);
+            timeLabels.push(timestamp);
+            
+            if (heartRateData.length > maxDataPoints) {
+                heartRateData.shift();
+                spo2Data.shift();
+                timeLabels.shift();
+            }
+            
+            if (healthChart && heartRateData.length > 1) {
+                healthChart.data.labels = timeLabels;
+                healthChart.data.datasets[0].data = heartRateData;
+                healthChart.data.datasets[1].data = spo2Data;
+                healthChart.update('none');
+            }
+        }
+
+        // Cắt dữ liệu theo số điểm tối đa
+        function trimDataPoints() {
+            if (heartRateData.length > maxDataPoints) {
+                const excess = heartRateData.length - maxDataPoints;
+                heartRateData.splice(0, excess);
+                spo2Data.splice(0, excess);
+                timeLabels.splice(0, excess);
+                
+                if (healthChart) {
+                    healthChart.data.labels = timeLabels;
+                    healthChart.data.datasets[0].data = heartRateData;
+                    healthChart.data.datasets[1].data = spo2Data;
+                    healthChart.update('none');
+                }
+            }
+        }
+
+        // Kiểm tra kết nối định kỳ
+        setInterval(() => {
+            if (deviceIP) {
+                fetch('/sensor')
+                    .then(response => {
+                        if (response.ok) {
+                            updateConnectionStatus('connected', 'Đã kết nối');
+                        } else {
+                            updateConnectionStatus('disconnected', 'Lỗi kết nối');
+                        }
+                    })
+                    .catch(() => {
+                        updateConnectionStatus('disconnected', 'Mất kết nối');
+                    });
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
