@@ -1,0 +1,22 @@
+@startuml
+actor Browser
+participant "index.html JS" as JS
+participant "HTTP Server\n(http_server_app)" as HTTP
+participant "data_mutex" as M
+participant "shared_data" as S
+
+Browser -> JS : load page
+JS -> JS : initChart() / initMotion3D()\nstartHealthUpdates()
+
+loop mỗi updateRate ms
+  JS -> HTTP : GET /sensor
+  HTTP -> M : xSemaphoreTake()
+  M --> HTTP : pdTRUE
+  HTTP -> S : đọc shared_data\n(sao chép local_data)
+  HTTP -> M : xSemaphoreGive()
+  HTTP --> JS : JSON {HR, SpO2, accel, gyro, ...}
+  JS -> JS : cập nhật DOM HR/SpO2
+  JS -> JS : updateChartData()
+  JS -> JS : updateMotionData()\n(tính pitch/roll, xoay cube 3D)
+end
+@enduml

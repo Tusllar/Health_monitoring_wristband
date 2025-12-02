@@ -1,0 +1,43 @@
+@startuml
+participant "mpu6050_task" as T_MPU
+participant "buzzer_task" as T_BZ
+participant "data_mutex" as M
+participant "shared_data" as S
+participant "detect_motion_events()" as DET
+participant "GPIO10\n(Buzzer)" as BZ
+
+loop 10Hz
+  T_MPU -> T_MPU : mpu6050_read_data()
+  alt OK
+    T_MPU -> M : xSemaphoreTake()
+    M --> T_MPU : pdTRUE
+    T_MPU -> S : cập nhật accel/gyro/temp,\nmpu_valid=true
+    T_MPU -> M : xSemaphoreGive()
+    T_MPU -> T_BZ : xTaskNotifyGive()
+  else lỗi
+    T_MPU -> M : xSemaphoreTake()
+    T_MPU -> S : mpu_valid=false
+    T_MPU -> M : xSemaphoreGive()
+  end
+end
+
+loop trong buzzer_task
+  T_BZ -> T_BZ : ulTaskNotifyTake(pdTRUE, 200ms)
+  T_BZ -> M : xSemaphoreTake()
+  M --> T_BZ : pdTRUE
+  T_BZ -> S : đọc shared_data → local_data
+  T_BZ -> M : xSemaphoreGive()
+  alt local_data.mpu_valid
+    T_BZ -> DET : detect_motion_events(motion, accel_x,y,z)
+    DET --> T_BZ : motion_event / NULL
+    alt motion_event != NULL và qua cooldown
+      T_BZ -> T_BZ : alert_triggered = true
+      T_BZ -> BZ : pattern beep\n(BẬT → DELAY → TẮT → DELAY)
+    else
+      T_BZ -> BZ : GPIO10=0 (tắt)
+    end
+  else
+    T_BZ -> BZ : GPIO10=0 (tắt)
+  end
+end
+@enduml

@@ -1,0 +1,87 @@
+@startuml
+start
+
+partition "app_main" {
+  :Khởi tạo WiFi (wifi_init_sta);
+  :Tạo data_mutex;
+  :Khởi tạo I2C (i2c_bus_init + i2c_bus_scan);
+  :Khởi tạo SSD1306, MAX30100, MPU6050;
+  :Tạo tasks:
+   - max30100_task
+   - mpu6050_task
+   - display_task
+   - buzzer_task
+   - http_server_task;
+}
+
+fork
+partition "max30100_task" {
+  repeat
+    :max30100_get_reading(&reading);
+    if (ret != ESP_OK?) then (YES)
+      :Log lỗi;\nDelay 100ms;
+    else (NO)
+      if (reading.valid?) then (YES)
+        :Take data_mutex;
+        :Cập nhật HR, SpO2,\nvalid=true,last_update;
+        :Give data_mutex;
+      else (NO)
+        :Take data_mutex;
+        :valid=false;
+        :Give data_mutex;
+      endif
+      :Delay 100ms;
+    endif
+  repeat while (true)
+}
+
+fork again
+partition "mpu6050_task" {
+  repeat
+    :mpu6050_read_data(&mpu_data);
+    if (ret == ESP_OK?) then (YES)
+      :Take data_mutex;
+      :Cập nhật accel, gyro,\nmpu_temp, mpu_valid=true;
+      :Give data_mutex;
+      :xTaskNotifyGive(buzzer_task_handle);
+    else (NO)
+      :Log sensor not available (chỉ lần đầu);
+      :Take data_mutex;
+      :mpu_valid=false;
+      :Give data_mutex;
+    endif
+    :Delay 100ms;
+  repeat while (true)
+}
+
+fork again
+partition "display_task" {
+  repeat
+    :Take data_mutex;
+    :local_data = shared_data;
+    :Give data_mutex;
+    :Vẽ HR/SpO2 lên OLED;
+    :Vẽ accel/gyro/MPU status;
+    :ssd1306_display();
+    :Delay 1000ms;
+  repeat while (true)
+}
+
+fork again
+partition "http_server_task" {
+  :Delay 3s chờ WiFi ổn định;
+  :Kiểm tra IP netif;\nlog IP;
+  :start_webserver();
+  repeat
+    :Delay 60s;
+    :Take data_mutex;
+    :local_data = shared_data;
+    :Give data_mutex;
+    :Log HR, SpO2, valid;
+  repeat while (true)
+}
+
+end fork
+
+end
+@enduml

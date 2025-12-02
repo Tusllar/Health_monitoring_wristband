@@ -1,0 +1,33 @@
+@startuml
+start
+
+partition "Browser (index.html)" {
+  :User mở http://IP_ESP/;
+  :Tải index.html, Chart.js, Three.js;
+  :DOMContentLoaded;
+  :initChart();
+  :initPerformanceControls();
+  :initMotion3D();
+  :startHealthUpdates();
+  
+  repeat
+    :updateHealth();
+    :fetch('/sensor');
+    if (HTTP OK?) then (YES)
+      :parse JSON -> data;
+      :Cập nhật HR/SpO2/status/lastUpdate UI;
+      if (data.spo2 trong [70..100]?) then (YES)
+        :updateChartData(heart_rate, spo2, time);
+      endif
+      :updateMotionData(data)\n(cập nhật accel/gyro/temp + xoay cube 3D);
+      :updateConnectionStatus(connected);
+    else (NO)
+      :Hiển thị lỗi kết nối;
+      :updateConnectionStatus(disconnected);
+    endif
+    :Delay = updateRate (ms) qua setInterval;
+  repeat while (tab còn mở)
+}
+
+end
+@enduml

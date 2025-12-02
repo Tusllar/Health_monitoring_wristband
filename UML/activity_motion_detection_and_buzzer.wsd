@@ -1,0 +1,47 @@
+@startuml
+start
+
+partition "mpu6050_task" {
+  repeat
+    :Đọc mpu6050_read_data;
+    if (OK?) then (YES)
+      :Cập nhật shared_data.mpu_* (under data_mutex);
+      :xTaskNotifyGive(buzzer_task_handle);
+    else (NO)
+      :Đánh dấu mpu_valid=false;
+    endif
+    :Delay 100ms;
+  repeat while (true)
+}
+
+partition "buzzer_task" {
+  :Khởi tạo GPIO10 cho buzzer;
+  :Khởi tạo motion_history;
+  repeat
+    :ulTaskNotifyTake(pdTRUE, 200ms);
+    :local_data = shared_data (under data_mutex);
+    if (local_data.mpu_valid?) then (YES)
+      :motion_event = detect_motion_events(motion, accel_x,y,z);
+      if (motion_event != NULL?) then (YES)
+        if (qua cooldown?) then (YES)
+          :alert_triggered = true;\nalert_reason = motion_event;
+        else (NO)
+          :alert_triggered = false;
+        endif
+      else (NO)
+        :alert_triggered = false;
+      endif
+    else (NO)
+      :alert_triggered = false;
+    endif
+    if (alert_triggered?) then (YES)
+      :Log cảnh báo + magnitude;
+      :Pattern 3 beep ngắn\n(BẬT GPIO10 → DELAY → TẮT → DELAY);
+    else (NO)
+      :Nếu trước đó đang cảnh báo → Log "cảnh báo tắt";
+      :Tắt buzzer (GPIO10=0);
+    endif
+  repeat while (true)
+}
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+actor User
+actor "Browser Client" as Browser
+actor "ESP32-C3 Device" as Device
+
+rectangle "ESP32-C3 Health Monitoring Wristband" {
+  usecase "UC1: Đo & hiển thị\nSpO2 + Nhịp tim\n(tại vòng tay)" as UC1
+  usecase "UC2: Giám sát chuyển động\n& phát hiện té ngã / va đập / rung tay" as UC2
+  usecase "UC3: Nghe cảnh báo\nqua buzzer" as UC3
+  usecase "UC4: Xem dữ liệu\nthời gian thực trên web" as UC4
+  usecase "UC5: Xem mô phỏng 3D\nhướng cổ tay" as UC5
+  usecase "UC6: Kết nối WiFi\n& khởi động Web Server" as UC6
+  usecase "UC7: Giám sát trạng thái\nhệ thống (logs)" as UC7
+}
+
+User -- UC1
+User -- UC2
+User -- UC3
+User -- UC4
+User -- UC5
+User -- UC7
+
+Browser -- UC4
+Browser -- UC5
+
+Device -- UC1
+Device -- UC2
+Device -- UC3
+Device -- UC4
+Device -- UC5
+Device -- UC6
+Device -- UC7
+
+UC4 .> UC6 : <<includes>>
+UC5 .> UC4 : <<extends>>
+
+@enduml

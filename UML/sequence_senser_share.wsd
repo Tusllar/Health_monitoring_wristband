@@ -1,0 +1,44 @@
+@startuml
+actor User
+participant "MAX30100\nSensor" as MAX
+participant "mpu6050\nSensor" as MPU
+participant "max30100_task" as T_MAX
+participant "mpu6050_task" as T_MPU
+participant "data_mutex" as M
+participant "shared_data" as S
+
+User -> MAX : Đặt ngón tay lên sensor
+loop 10Hz
+  T_MAX -> MAX : max30100_get_reading()
+  MAX --> T_MAX : reading (HR, SpO2, valid)
+  alt ret != ESP_OK
+    T_MAX -> T_MAX : log lỗi + vTaskDelay(100ms)
+  else valid == true
+    T_MAX -> M : xSemaphoreTake()
+    M --> T_MAX : pdTRUE
+    T_MAX -> S : cập nhật heart_rate,\nspo2, valid=true,\nlast_update
+    T_MAX -> M : xSemaphoreGive()
+  else invalid
+    T_MAX -> M : xSemaphoreTake()
+    M --> T_MAX : pdTRUE
+    T_MAX -> S : valid=false
+    T_MAX -> M : xSemaphoreGive()
+  end
+end
+
+loop 10Hz
+  T_MPU -> MPU : mpu6050_read_data()
+  MPU --> T_MPU : accel, gyro, temp / error
+  alt ret == ESP_OK
+    T_MPU -> M : xSemaphoreTake()
+    M --> T_MPU : pdTRUE
+    T_MPU -> S : cập nhật accel/gyro/temp,\nmpu_valid=true
+    T_MPU -> M : xSemaphoreGive()
+    T_MPU -> "buzzer_task" : xTaskNotifyGive()
+  else
+    T_MPU -> M : xSemaphoreTake()
+    T_MPU -> S : mpu_valid=false
+    T_MPU -> M : xSemaphoreGive()
+  end
+end
+@enduml
