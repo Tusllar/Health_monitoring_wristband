@@ -32,6 +32,17 @@ typedef struct {
 extern shared_sensor_data_t shared_data;
 extern SemaphoreHandle_t data_mutex;
 
+// Alert history từ main (vòng đệm các cảnh báo buzzer)
+#define ALERT_HISTORY_SIZE 20
+typedef struct {
+    uint32_t timestamp_ms;
+    char message[64];
+} alert_event_t;
+
+extern alert_event_t alert_history[];
+extern uint32_t alert_history_count;
+extern uint32_t alert_history_head;
+
 /* Serve index.html at root path */
 static esp_err_t root_get_handler(httpd_req_t *req)
 {
@@ -117,6 +128,74 @@ static const httpd_uri_t sensor = {
     .user_ctx  = NULL
 };
 
+// Handler trả về danh sách cảnh báo (fall, impact, chạy, tremor, ...) để hiển thị trên web
+static esp_err_t alerts_handler(httpd_req_t *req)
+{
+    ESP_LOGI(TAG, "Alerts handler called");
+
+    // Dùng buffer static để tránh dùng quá nhiều stack của task httpd
+    static alert_event_t local_history[ALERT_HISTORY_SIZE];
+    static char resp[1024];
+    uint32_t count = 0;
+
+    // Sao chép dữ liệu alert history dưới mutex để tránh race condition
+    if (data_mutex != NULL && xSemaphoreTake(data_mutex, pdMS_TO_TICKS(100)) == pdTRUE) {
+        uint32_t head = alert_history_head;
+        count = alert_history_count;
+
+        if (count > ALERT_HISTORY_SIZE) {
+            count = ALERT_HISTORY_SIZE;
+        }
+
+        // Lấy theo thứ tự thời gian tăng dần (cũ → mới)
+        for (uint32_t i = 0; i < count; i++) {
+            uint32_t idx = (head + ALERT_HISTORY_SIZE - count + i) % ALERT_HISTORY_SIZE;
+            local_history[i] = alert_history[idx];
+        }
+
+        xSemaphoreGive(data_mutex);
+    }
+
+    int len = snprintf(resp, sizeof(resp), "{\"alerts\":[");
+
+    for (uint32_t i = 0; i < count && len > 0 && (size_t)len < sizeof(resp) - 1; i++) {
+        int written = snprintf(resp + len, sizeof(resp) - len,
+                               "%s{\"t\":%" PRIu32 ",\"msg\":\"%s\"}",
+                               (i == 0) ? "" : ",",
+                               local_history[i].timestamp_ms,
+                               local_history[i].message);
+        if (written < 0 || (size_t)written >= sizeof(resp) - len) {
+            break;
+        }
+        len += written;
+    }
+
+    if ((size_t)len < sizeof(resp) - 2) {
+        resp[len++] = ']';
+        resp[len++] = '}';
+        resp[len] = '\0';
+    } else {
+        // Không đủ buffer, đóng JSON đơn giản
+        snprintf(resp, sizeof(resp), "{\"alerts\":[]}");
+        len = strlen(resp);
+    }
+
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Cache-Control", "no-store, no-cache, must-revalidate");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    httpd_resp_send(req, resp, len);
+
+    ESP_LOGI(TAG, "Alerts response sent (count=%" PRIu32 ")", count);
+    return ESP_OK;
+}
+
+static const httpd_uri_t alerts = {
+    .uri       = "/alerts",
+    .method    = HTTP_GET,
+    .handler   = alerts_handler,
+    .user_ctx  = NULL
+};
+
 void start_webserver(void)
 {
     // Kiểm tra và log IP address
@@ -145,14 +224,17 @@ void start_webserver(void)
         ESP_LOGI(TAG, "Registering URI handlers");
         esp_err_t ret1 = httpd_register_uri_handler(server, &root);
         esp_err_t ret2 = httpd_register_uri_handler(server, &sensor);
+        esp_err_t ret3 = httpd_register_uri_handler(server, &alerts);
         
-        if (ret1 == ESP_OK && ret2 == ESP_OK) {
+        if (ret1 == ESP_OK && ret2 == ESP_OK && ret3 == ESP_OK) {
             ESP_LOGI(TAG, "URI handlers registered successfully");
             ESP_LOGI(TAG, "  - GET /");
             ESP_LOGI(TAG, "  - GET /sensor");
+            ESP_LOGI(TAG, "  - GET /alerts");
             ESP_LOGI(TAG, "Server is ready to accept connections");
         } else {
-            ESP_LOGE(TAG, "Failed to register URI handlers: root=%d, sensor=%d", ret1, ret2);
+            ESP_LOGE(TAG, "Failed to register URI handlers: root=%d, sensor=%d, alerts=%d",
+                     ret1, ret2, ret3);
         }
     } else {
         ESP_LOGE(TAG, "Error starting server! Error code: %d", ret);

@@ -63,6 +63,40 @@ SemaphoreHandle_t data_mutex = NULL;
 // Task handle for buzzer task to use Task Notifications
 static TaskHandle_t buzzer_task_handle = NULL;
 
+// ========================= ALERT HISTORY (FOR WEB UI) =========================
+#define ALERT_HISTORY_SIZE 20
+
+typedef struct {
+    uint32_t timestamp_ms;      // thời gian theo ms từ khi boot (xTaskGetTickCount)
+    char message[64];           // nội dung cảnh báo (té ngã, va đập, ...)
+} alert_event_t;
+
+// Vòng đệm lưu history, được đọc từ HTTP server và hiển thị trên web
+alert_event_t alert_history[ALERT_HISTORY_SIZE] = {0};
+uint32_t alert_history_count = 0;
+uint32_t alert_history_head = 0;   // vị trí phần tử mới nhất sẽ được ghi tiếp theo
+
+static void add_alert_event(const char *msg)
+{
+    if (msg == NULL || data_mutex == NULL) {
+        return;
+    }
+
+    if (xSemaphoreTake(data_mutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+        uint32_t idx = alert_history_head;
+        alert_history[idx].timestamp_ms = xTaskGetTickCount() * portTICK_PERIOD_MS;
+        strncpy(alert_history[idx].message, msg, sizeof(alert_history[idx].message) - 1);
+        alert_history[idx].message[sizeof(alert_history[idx].message) - 1] = '\0';
+
+        alert_history_head = (alert_history_head + 1) % ALERT_HISTORY_SIZE;
+        if (alert_history_count < ALERT_HISTORY_SIZE) {
+            alert_history_count++;
+        }
+
+        xSemaphoreGive(data_mutex);
+    }
+}
+
 
 
 // ========================= MAX30100 TASK =========================
@@ -428,6 +462,11 @@ static void buzzer_task(void *pvParameters)
                 }
                 last_alert_state = true;
                 alert_count = 0;
+
+                // Lưu sự kiện cảnh báo vào history để hiển thị trên web
+                if (alert_reason != NULL) {
+                    add_alert_event(alert_reason);
+                }
             }
             
             // Beep pattern: 3 beep ngắn, sau đó im lặng

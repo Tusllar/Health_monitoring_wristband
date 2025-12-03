@@ -1,0 +1,47 @@
+@startuml
+concise "max30100_task" as MAX
+concise "mpu6050_task" as MPU
+concise "shared_data" as SHARED
+concise "HTTP /sensor" as HTTP
+concise "Browser fetch()" as WEB
+
+@0
+MAX is "idle"
+MPU is "idle"
+SHARED is "old data"
+HTTP is "idle"
+WEB is "idle"
+
+' Tick 100 ms: MAX cập nhật HR/SpO2
+@100
+MAX is "read+update"
+SHARED is "HR/SpO2 mới"
+@120
+MAX is "idle"
+
+' Tick 100 ms: MPU cập nhật accel/gyro
+@150
+MPU is "read+update"
+SHARED is "HR/SpO2 + Motion mới"
+@170
+MPU is "idle"
+
+' Browser fetch mỗi 500 ms
+@200
+WEB is "fetch /sensor"
+HTTP is "read shared_data"
+@220
+WEB is "update chart + 3D"
+HTTP is "idle"
+
+' Vòng tiếp theo
+@600
+MAX is "read+update"
+@650
+MPU is "read+update"
+@700
+WEB is "fetch /sensor"
+@720
+WEB is "update chart + 3D"
+
+@enduml

@@ -1,0 +1,2 @@
+source /home/tu/esp/health_monitoring_wristband/build/gdbinit/symbols
+source /home/tu/esp/health_monitoring_wristband/build/gdbinit/connect

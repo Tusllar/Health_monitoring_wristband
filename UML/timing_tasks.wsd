@@ -1,0 +1,60 @@
+@startuml
+' Thời gian tăng dần từ trái sang phải
+
+robust "max30100_task" as MAX
+robust "mpu6050_task" as MPU
+robust "display_task" as DISP
+robust "buzzer_task" as BUZ
+robust "http_server_task" as HTTP
+
+' Giả sử:
+' - MAX/MPU: 10 Hz (100 ms)
+' - DISP: 1 Hz (1000 ms)
+' - HTTP: log 60 s
+' - BUZ: chờ notify, đôi khi thức dậy
+
+@0
+MAX is idle
+MPU is idle
+DISP is idle
+BUZ is idle
+HTTP is idle
+
+@10
+MAX is active
+@20
+MAX is idle
+
+@100
+MPU is active
+@110
+MPU is idle
+
+@100
+DISP is active
+@150
+DISP is idle
+
+@200
+MAX is active
+@210
+MAX is idle
+
+@300
+MPU is active
+@310
+MPU is idle
+
+' Buzzer ngủ, thỉnh thoảng được notify (ví dụ @320 ms)
+@320
+BUZ is active
+@380
+BUZ is idle
+
+' HTTP server task chỉ thức dậy 60s một lần để log
+@1000
+HTTP is active
+@1020
+HTTP is idle
+
+@enduml

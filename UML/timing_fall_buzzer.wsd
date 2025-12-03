@@ -1,0 +1,51 @@
+@startuml
+' Biểu diễn tương đối theo tick FreeRTOS
+
+concise "Accel Magnitude (MPU6050)" as ACC
+concise "mpu6050_task" as MPU
+concise "Task Notify\n(buzzer_task)" as NOTIFY
+concise "Buzzer GPIO10" as BZ
+concise "Motion State" as STATE
+
+@0
+ACC is "1g (đứng yên)"
+MPU is "idle"
+NOTIFY is "0"
+BZ is "OFF"
+STATE is "Bình thường"
+
+' Rơi tự do
+@100
+ACC is "rơi (<0.5g)"
+MPU is "read+update"
+NOTIFY is "++"  ' xTaskNotifyGive()
+STATE is "Free-fall (tạm thời)"
+
+' Va đập
+@150
+ACC is ">2.5g"
+MPU is "read+update"
+NOTIFY is "++"
+STATE is "Impact"
+
+' Buzzer task xử lý notify, phát cảnh báo
+@160
+BZ is "ON (beep 1)"
+STATE is "Té ngã cảnh báo"
+
+@180
+BZ is "OFF"
+@200
+BZ is "ON (beep 2)"
+@220
+BZ is "OFF"
+@240
+BZ is "ON (beep 3)"
+@260
+BZ is "OFF"
+
+' Im lặng (cooldown)
+@400
+STATE is "Hết cảnh báo"
+
+@enduml

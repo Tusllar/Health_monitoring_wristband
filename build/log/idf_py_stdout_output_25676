@@ -1,0 +1,1206 @@
+Command: /home/tu/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/tu/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix riscv32-esp-elf- --target esp32c3 --revision 3 --decode-panic backtrace /home/tu/esp/health_monitoring_wristband/build/health_monitoring_wristband.elf /home/tu/esp/health_monitoring_wristband/build/bootloader/bootloader.elf -m '/home/tu/.espressif/python_env/idf5.5_py3.10_env/bin/python' '/home/tu/esp/esp-idf/tools/idf.py'
+ESP-ROM:esp32c3-api1-20210207
+Build:Feb  7 2021
+rst:0x1 (POWERON),boot:0xd (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fcd5820,len:0x15ac
+load:0x403cbf10,len:0xc34
+load:0x403ce710,len:0x2fd0
+entry 0x403cbf1a
+[0;32mI (30) boot: ESP-IDF v5.5.1-418-gf1a1df9b2e 2nd stage bootloader[0m
+[0;32mI (30) boot: compile time Dec  3 2025 13:29:25[0m
+[0;32mI (30) boot: chip revision: v0.4[0m
+[0;32mI (32) boot: efuse block revision: v1.3[0m
+[0;32mI (35) boot.esp32c3: SPI Speed      : 80MHz[0m
+[0;32mI (39) boot.esp32c3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32c3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (51) boot: Partition Table:[0m
+[0;32mI (54) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (60) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (67) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (73) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (80) boot: End of partition table[0m
+[0;32mI (83) esp_image: segment 0: paddr=00010020 vaddr=3c0b0020 size=26164h (156004) map[0m
+[0;32mI (115) esp_image: segment 1: paddr=0003618c vaddr=3fc95e00 size=02f6ch ( 12140) load[0m
+[0;32mI (118) esp_image: segment 2: paddr=00039100 vaddr=40380000 size=06f18h ( 28440) load[0m
+[0;32mI (124) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=a0f94h (659348) map[0m
+[0;32mI (232) esp_image: segment 4: paddr=000e0fbc vaddr=40386f18 size=0eeb0h ( 61104) load[0m
+[0;32mI (243) esp_image: segment 5: paddr=000efe74 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (250) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (250) boot: Disabling RNG early entropy source...[0m
+[0;32mI (261) cpu_start: Unicore app[0m
+[0;32mI (269) cpu_start: Pro cpu start user code[0m
+[0;32mI (269) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (269) app_init: Application information:[0m
+[0;32mI (269) app_init: Project name:     health_monitoring_wristband[0m
+[0;32mI (275) app_init: App version:      3d73c22-dirty[0m
+[0;32mI (279) app_init: Compile time:     Dec  3 2025 13:29:11[0m
+[0;32mI (284) app_init: ELF file SHA256:  f249b8a6c...[0m
+[0;32mI (289) app_init: ESP-IDF:          v5.5.1-418-gf1a1df9b2e[0m
+[0;32mI (294) efuse_init: Min chip rev:     v0.3[0m
+[0;32mI (298) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (302) efuse_init: Chip rev:         v0.4[0m
+[0;32mI (306) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (312) heap_init: At 3FC9DB40 len 000224C0 (137 KiB): RAM[0m
+[0;32mI (317) heap_init: At 3FCC0000 len 0001C710 (113 KiB): Retention RAM[0m
+[0;32mI (323) heap_init: At 3FCDC710 len 00002950 (10 KiB): Retention RAM[0m
+[0;32mI (329) heap_init: At 50000020 len 00001FC8 (7 KiB): RTCRAM[0m
+[0;32mI (335) spi_flash: detected chip: generic[0m
+[0;32mI (338) spi_flash: flash io: dio[0m
+[0;33mW (341) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (353) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (363) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (369) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (376) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (384) coexist: coexist rom version 9387209[0m
+[0;32mI (385) main_task: Started on CPU0[0m
+[0;32mI (387) main_task: Calling app_main()[0m
+[0;32mI (390) MAIN: =================================[0m
+[0;32mI (394) MAIN: ESP32-C3 Health Monitor Starting[0m
+[0;32mI (398) MAIN: =================================[0m
+[0;32mI (403) MAIN: Initializing WiFi...[0m
+[0;32mI (413) wifi station: ESP_WIFI_MODE_STA[0m
+[0;32mI (415) pp: pp rom version: 9387209[0m
+[0;32mI (415) net80211: net80211 rom version: 9387209[0m
+[0;32mI (418) wifi:wifi driver task: 3fca6944, prio:23, stack:6656, core=0[0m
+[0;32mI (429) wifi:wifi firmware version: 30d89ec[0m
+[0;32mI (430) wifi:wifi certification version: v7.0[0m
+[0;32mI (431) wifi:config NVS flash: enabled[0m
+[0;32mI (434) wifi:config nano formatting: disabled[0m
+[0;32mI (439) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (443) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (447) wifi:Init management short buffer num: 32[0m
+[0;32mI (452) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (456) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (460) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (464) wifi:Init static rx buffer num: 10[0m
+[0;32mI (468) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (472) wifi_init: rx ba win: 6[0m
+[0;32mI (474) wifi_init: accept mbox: 6[0m
+[0;32mI (477) wifi_init: tcpip mbox: 32[0m
+[0;32mI (481) wifi_init: udp mbox: 6[0m
+[0;32mI (483) wifi_init: tcp mbox: 6[0m
+[0;32mI (486) wifi_init: tcp tx win: 5760[0m
+[0;32mI (489) wifi_init: tcp rx win: 5760[0m
+[0;32mI (492) wifi_init: tcp mss: 1440[0m
+[0;32mI (495) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (499) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (504) phy_init: phy_version 1201,bae5dd99,Mar  3 2025,15:36:21[0m
+[0;32mI (542) wifi:mode : sta (80:65:99:2b:78:c0)[0m
+[0;32mI (543) wifi:enable tsf[0m
+[0;32mI (545) wifi station: wifi_init_sta finished.[0m
+[0;32mI (557) wifi:new:<10,0>, old:<1,0>, ap:<255,255>, sta:<10,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (558) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (583) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (638) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (736) wifi:connected with 4 chi em, aid = 10, channel 10, BW20, bssid = cc:71:90:23:fc:a8[0m
+[0;32mI (737) wifi:security: WPA2-PSK, phy: bgn, rssi: -37[0m
+[0;32mI (739) wifi:pm start, type: 1[0m
+
+[0;32mI (741) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (749) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (820) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (1744) wifi:<ba-add>idx:0 (ifx:0, cc:71:90:23:fc:a8), tid:0, ssn:6, winSize:64[0m
+[0;32mI (2033) esp_netif_handlers: sta ip: 192.168.1.4, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (2033) wifi station: got ip:192.168.1.4[0m
+[0;32mI (2034) wifi station: connected to ap SSID:4 chi em password:daytro6868[0m
+[0;32mI (2040) I2C_BUS: I2C initialized successfully[0m
+[0;32mI (2044) I2C_BUS: SDA: GPIO4, SCL: GPIO5, Freq: 100000 Hz[0m
+[0;32mI (2049) MAIN: Scanning I2C bus...[0m
+[0;32mI (2052) I2C_BUS: Scanning I2C bus...[0m
+[0;32mI (2064) I2C_BUS: Found device at address: 0x3C[0m
+[0;32mI (2068) I2C_BUS: Found device at address: 0x57[0m
+[0;32mI (2071) I2C_BUS: Found device at address: 0x68[0m
+[0;32mI (2073) I2C_BUS: Found 3 I2C device(s)[0m
+[0;32mI (2574) MAIN: Initializing SSD1306...[0m
+[0;32mI (2713) SSD1306: SSD1306 initialized successfully[0m
+[0;32mI (2713) MAIN: Initializing MAX30100...[0m
+[0;32mI (2714) MAX30100: MAX30100 detected PART=0x11 REV=0x05[0m
+[0;32mI (3236) MAIN: Initializing MPU6050...[0m
+[0;32mI (3336) MPU6050: Searching for MPU6050...[0m
+[0;32mI (3336) MPU6050: Trying address 0x68...[0m
+[0;32mI (3337) MPU6050: MPU-compatible sensor found at 0x68 (WHO_AM_I=0x70, likely MPU6500)[0m
+[0;32mI (3441) MPU6050: MPU6050 initialized successfully[0m
+[0;32mI (3441) MAIN: MPU6050 initialized successfully[0m
+[0;32mI (3941) MAIN: Sensors initialized — starting tasks...[0m
+[0;32mI (3941) MAIN: Display task started[0m
+[0;32mI (3942) MAIN: MAX30100 task started[0m
+[0;32mI (3942) MAIN: MPU6050 task started[0m
+[0;32mI (3945) MAIN: Buzzer task started[0m
+[0;32mI (3948) MAIN: Buzzer initialized on GPIO 10[0m
+[0;32mI (3952) MAIN: HTTP Server task started[0m
+[0;32mI (3955) MAIN: System running...[0m
+[0;32mI (3958) main_task: Returned from app_main()[0m
+[0;32mI (6955) MAIN: IP confirmed: 192.168.1.4[0m
+[0;32mI (6955) MAIN: Starting web server...[0m
+[0;32mI (6955) HTTP_SERVER: Network ready - IP: 192.168.1.4[0m
+[0;32mI (6956) HTTP_SERVER: Starting server on port: '80'[0m
+[0;32mI (6962) HTTP_SERVER: HTTP server started successfully[0m
+[0;32mI (6965) HTTP_SERVER: Registering URI handlers[0m
+[0;32mI (6969) HTTP_SERVER: URI handlers registered successfully[0m
+[0;32mI (6975) HTTP_SERVER:   - GET /[0m
+[0;32mI (6977) HTTP_SERVER:   - GET /sensor[0m
+[0;32mI (6981) HTTP_SERVER: Server is ready to accept connections[0m
+[0;32mI (6986) MAIN: HTTP Server started successfully[0m
+[0;32mI (7278) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (7278) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (7281) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.013,"y":0.021,"z":1.027},"gyro":{"x":1.611,"y":6.885,"z":-0.809},"mpu_temp":44.33,"mpu_valid":true} (len=174)[0m
+[0;32mI (7786) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (7786) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (7789) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.015,"y":0.019,"z":1.022},"gyro":{"x":1.603,"y":6.756,"z":-0.832},"mpu_temp":44.33,"mpu_valid":true} (len=174)[0m
+[0;32mI (8298) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (8299) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (8302) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.015,"y":0.019,"z":1.024},"gyro":{"x":1.473,"y":6.809,"z":-0.908},"mpu_temp":44.33,"mpu_valid":true} (len=174)[0m
+[0;32mI (8820) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (8821) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (8824) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.019,"y":0.019,"z":1.031},"gyro":{"x":1.611,"y":6.802,"z":-0.809},"mpu_temp":44.32,"mpu_valid":true} (len=174)[0m
+[0;32mI (9323) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (9324) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (9326) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.010,"y":0.020,"z":1.029},"gyro":{"x":1.519,"y":6.802,"z":-0.878},"mpu_temp":44.31,"mpu_valid":true} (len=174)[0m
+[0;32mI (9736) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (9737) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (9740) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.015,"y":0.020,"z":1.028},"gyro":{"x":1.534,"y":6.847,"z":-0.916},"mpu_temp":44.32,"mpu_valid":true} (len=174)[0m
+[0;32mI (9834) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (9834) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (9837) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.010,"y":0.021,"z":1.024},"gyro":{"x":1.420,"y":6.809,"z":-0.924},"mpu_temp":44.32,"mpu_valid":true} (len=174)[0m
+[0;32mI (10244) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (10244) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (10247) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.017,"y":0.024,"z":1.043},"gyro":{"x":1.443,"y":6.847,"z":-0.901},"mpu_temp":44.32,"mpu_valid":true} (len=174)[0m
+[0;32mI (10756) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (10756) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (10759) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.015,"y":0.021,"z":1.028},"gyro":{"x":1.573,"y":6.794,"z":-0.893},"mpu_temp":44.34,"mpu_valid":true} (len=174)[0m
+[0;32mI (11269) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (11269) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (11272) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.014,"y":0.024,"z":1.024},"gyro":{"x":1.588,"y":6.786,"z":-0.947},"mpu_temp":44.34,"mpu_valid":true} (len=174)[0m
+[0;32mI (11780) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (11780) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (11783) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.013,"y":0.026,"z":1.027},"gyro":{"x":1.626,"y":6.779,"z":-0.878},"mpu_temp":44.33,"mpu_valid":true} (len=174)[0m
+[0;32mI (12293) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (12294) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (12297) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.015,"y":0.024,"z":1.025},"gyro":{"x":1.580,"y":6.840,"z":-0.832},"mpu_temp":44.33,"mpu_valid":true} (len=174)[0m
+[0;32mI (12804) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (12804) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (12807) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.015,"y":0.021,"z":1.024},"gyro":{"x":1.534,"y":6.901,"z":-0.863},"mpu_temp":44.33,"mpu_valid":true} (len=174)[0m
+[0;32mI (13316) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (13316) HTTP_SERVER: Data read: HR=0.0, SpO2=0.0, valid=0[0m
+[0;32mI (13319) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":0.0,"valid":false,"last_update":0,"accel":{"x":-0.016,"y":0.020,"z":1.029},"gyro":{"x":1.626,"y":6.916,"z":-0.786},"mpu_temp":44.35,"mpu_valid":true} (len=174)[0m
+[0;32mI (13829) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (13829) HTTP_SERVER: Data read: HR=0.0, SpO2=81.7, valid=1[0m
+[0;32mI (13832) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":81.7,"valid":true,"last_update":13356,"accel":{"x":-0.014,"y":0.021,"z":1.024},"gyro":{"x":1.550,"y":6.885,"z":-0.893},"mpu_temp":44.33,"mpu_valid":true} (len=178)[0m
+[0;32mI (14237) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (14238) HTTP_SERVER: Data read: HR=0.0, SpO2=81.4, valid=1[0m
+[0;32mI (14241) HTTP_SERVER: Response sent: {"heart_rate":0.0,"spo2":81.4,"valid":true,"last_update":13773,"accel":{"x":-0.016,"y":0.017,"z":1.029},"gyro":{"x":1.557,"y":6.725,"z":-0.779},"mpu_temp":44.36,"mpu_valid":true} (len=178)[0m
+[0;32mI (14749) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (14750) HTTP_SERVER: Data read: HR=17.6, SpO2=82.0, valid=1[0m
+[0;32mI (14753) HTTP_SERVER: Response sent: {"heart_rate":17.6,"spo2":82.0,"valid":true,"last_update":14279,"accel":{"x":-0.015,"y":0.019,"z":1.026},"gyro":{"x":1.542,"y":6.748,"z":-0.794},"mpu_temp":44.34,"mpu_valid":true} (len=179)[0m
+[0;32mI (15267) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (15267) HTTP_SERVER: Data read: HR=70.6, SpO2=82.8, valid=1[0m
+[0;32mI (15270) HTTP_SERVER: Response sent: {"heart_rate":70.6,"spo2":82.8,"valid":true,"last_update":14790,"accel":{"x":-0.013,"y":0.018,"z":1.026},"gyro":{"x":1.519,"y":6.817,"z":-0.840},"mpu_temp":44.36,"mpu_valid":true} (len=179)[0m
+[0;32mI (15774) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (15775) HTTP_SERVER: Data read: HR=123.9, SpO2=83.3, valid=1[0m
+[0;32mI (15777) HTTP_SERVER: Response sent: {"heart_rate":123.9,"spo2":83.3,"valid":true,"last_update":15312,"accel":{"x":-0.023,"y":0.028,"z":1.030},"gyro":{"x":1.916,"y":6.870,"z":-10.229},"mpu_temp":44.36,"mpu_valid":true} (len=181)[0m
+[0;32mI (16294) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (16295) HTTP_SERVER: Data read: HR=123.9, SpO2=83.9, valid=1[0m
+[0;32mI (16298) HTTP_SERVER: Response sent: {"heart_rate":123.9,"spo2":83.9,"valid":true,"last_update":15816,"accel":{"x":0.096,"y":-0.144,"z":0.986},"gyro":{"x":-179.969,"y":29.489,"z":-10.618},"mpu_temp":44.34,"mpu_valid":true} (len=185)[0m
+[0;32mI (16798) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (16798) HTTP_SERVER: Data read: HR=108.5, SpO2=84.2, valid=1[0m
+[0;32mI (16801) HTTP_SERVER: Response sent: {"heart_rate":108.5,"spo2":84.2,"valid":true,"last_update":16340,"accel":{"x":0.032,"y":-0.696,"z":0.723},"gyro":{"x":-15.695,"y":16.076,"z":3.733},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (17309) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (17310) HTTP_SERVER: Data read: HR=135.4, SpO2=85.2, valid=1[0m
+[0;32mI (17313) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":85.2,"valid":true,"last_update":16844,"accel":{"x":0.077,"y":-0.724,"z":0.694},"gyro":{"x":-5.183,"y":5.756,"z":-3.260},"mpu_temp":44.37,"mpu_valid":true} (len=181)[0m
+[0;32mI (17821) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (17822) HTTP_SERVER: Data read: HR=135.4, SpO2=86.6, valid=1[0m
+[0;32mI (17825) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.6,"valid":true,"last_update":17359,"accel":{"x":-0.060,"y":-0.755,"z":0.738},"gyro":{"x":-30.107,"y":21.824,"z":-30.527},"mpu_temp":44.36,"mpu_valid":true} (len=185)[0m
+[0;32mI (18056) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18057) HTTP_SERVER: Data read: HR=135.4, SpO2=86.5, valid=1[0m
+[0;32mI (18060) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.5,"valid":true,"last_update":17662,"accel":{"x":-0.076,"y":-0.799,"z":1.529},"gyro":{"x":-7.893,"y":28.466,"z":55.389},"mpu_temp":44.36,"mpu_valid":true} (len=183)[0m
+[0;32mI (18238) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18239) HTTP_SERVER: Data read: HR=135.4, SpO2=86.4, valid=1[0m
+[0;32mI (18242) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.4,"valid":true,"last_update":17763,"accel":{"x":0.003,"y":-0.364,"z":0.887},"gyro":{"x":94.824,"y":34.763,"z":25.847},"mpu_temp":44.34,"mpu_valid":true} (len=182)[0m
+[0;32mI (18258) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18261) HTTP_SERVER: Data read: HR=135.4, SpO2=86.4, valid=1[0m
+[0;32mI (18269) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.4,"valid":true,"last_update":17763,"accel":{"x":0.003,"y":-0.364,"z":0.887},"gyro":{"x":94.824,"y":34.763,"z":25.847},"mpu_temp":44.34,"mpu_valid":true} (len=182)[0m
+[0;32mI (18290) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18291) HTTP_SERVER: Data read: HR=135.4, SpO2=86.4, valid=1[0m
+[0;32mI (18299) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.4,"valid":true,"last_update":17763,"accel":{"x":0.003,"y":-0.364,"z":0.887},"gyro":{"x":94.824,"y":34.763,"z":25.847},"mpu_temp":44.34,"mpu_valid":true} (len=182)[0m
+[0;32mI (18346) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18347) HTTP_SERVER: Data read: HR=135.4, SpO2=86.4, valid=1[0m
+[0;32mI (18350) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.4,"valid":true,"last_update":17933,"accel":{"x":-0.168,"y":-0.462,"z":1.183},"gyro":{"x":29.962,"y":-10.847,"z":-10.931},"mpu_temp":44.35,"mpu_valid":true} (len=185)[0m
+[0;32mI (18367) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18370) HTTP_SERVER: Data read: HR=135.4, SpO2=86.4, valid=1[0m
+[0;32mI (18377) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.4,"valid":true,"last_update":17933,"accel":{"x":-0.168,"y":-0.462,"z":1.183},"gyro":{"x":29.962,"y":-10.847,"z":-10.931},"mpu_temp":44.35,"mpu_valid":true} (len=185)[0m
+[0;32mI (18426) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18427) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18430) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18034,"accel":{"x":0.119,"y":-0.175,"z":1.055},"gyro":{"x":39.748,"y":-3.733,"z":13.718},"mpu_temp":44.33,"mpu_valid":true} (len=182)[0m
+[0;32mI (18447) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18449) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18457) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18034,"accel":{"x":0.119,"y":-0.175,"z":1.055},"gyro":{"x":39.748,"y":-3.733,"z":13.718},"mpu_temp":44.33,"mpu_valid":true} (len=182)[0m
+[0;32mI (18508) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18508) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18511) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18034,"accel":{"x":0.119,"y":-0.175,"z":1.055},"gyro":{"x":39.748,"y":-3.733,"z":13.718},"mpu_temp":44.33,"mpu_valid":true} (len=182)[0m
+[0;32mI (18530) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18530) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18539) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18034,"accel":{"x":0.119,"y":-0.175,"z":1.055},"gyro":{"x":39.748,"y":-3.733,"z":13.718},"mpu_temp":44.33,"mpu_valid":true} (len=182)[0m
+[0;32mI (18588) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18588) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18592) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18175,"accel":{"x":0.071,"y":0.015,"z":0.833},"gyro":{"x":55.718,"y":25.656,"z":-11.580},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18609) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18611) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18619) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18175,"accel":{"x":0.071,"y":0.015,"z":0.833},"gyro":{"x":55.718,"y":25.656,"z":-11.580},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18667) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18668) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18672) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18175,"accel":{"x":0.071,"y":0.015,"z":0.833},"gyro":{"x":55.718,"y":25.656,"z":-11.580},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18688) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18690) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18698) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18175,"accel":{"x":0.071,"y":0.015,"z":0.833},"gyro":{"x":55.718,"y":25.656,"z":-11.580},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18748) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18749) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18752) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18336,"accel":{"x":-0.032,"y":-0.056,"z":1.025},"gyro":{"x":21.008,"y":13.389,"z":-3.092},"mpu_temp":44.35,"mpu_valid":true} (len=183)[0m
+[0;32mI (18769) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18771) HTTP_SERVER: Data read: HR=135.4, SpO2=86.3, valid=1[0m
+[0;32mI (18780) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.3,"valid":true,"last_update":18336,"accel":{"x":-0.032,"y":-0.056,"z":1.025},"gyro":{"x":21.008,"y":13.389,"z":-3.092},"mpu_temp":44.35,"mpu_valid":true} (len=183)[0m
+[0;32mI (18831) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18831) HTTP_SERVER: Data read: HR=135.4, SpO2=86.2, valid=1[0m
+[0;32mI (18834) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.2,"valid":true,"last_update":18437,"accel":{"x":-0.014,"y":-0.001,"z":0.962},"gyro":{"x":0.756,"y":12.679,"z":-4.397},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18852) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18854) HTTP_SERVER: Data read: HR=135.4, SpO2=86.2, valid=1[0m
+[0;32mI (18862) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.2,"valid":true,"last_update":18437,"accel":{"x":-0.014,"y":-0.001,"z":0.962},"gyro":{"x":0.756,"y":12.679,"z":-4.397},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18913) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18914) HTTP_SERVER: Data read: HR=135.4, SpO2=86.2, valid=1[0m
+[0;32mI (18917) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.2,"valid":true,"last_update":18437,"accel":{"x":-0.014,"y":-0.001,"z":0.962},"gyro":{"x":0.756,"y":12.679,"z":-4.397},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18935) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18936) HTTP_SERVER: Data read: HR=135.4, SpO2=86.2, valid=1[0m
+[0;32mI (18944) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.2,"valid":true,"last_update":18437,"accel":{"x":-0.014,"y":-0.001,"z":0.962},"gyro":{"x":0.756,"y":12.679,"z":-4.397},"mpu_temp":44.35,"mpu_valid":true} (len=182)[0m
+[0;32mI (18994) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (18994) HTTP_SERVER: Data read: HR=135.4, SpO2=86.2, valid=1[0m
+[0;32mI (18998) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.2,"valid":true,"last_update":18580,"accel":{"x":-0.142,"y":-0.040,"z":0.991},"gyro":{"x":-14.435,"y":0.061,"z":-13.901},"mpu_temp":44.35,"mpu_valid":true} (len=184)[0m
+[0;32mI (19015) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19017) HTTP_SERVER: Data read: HR=135.4, SpO2=86.2, valid=1[0m
+[0;32mI (19025) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.2,"valid":true,"last_update":18580,"accel":{"x":-0.142,"y":-0.040,"z":0.991},"gyro":{"x":-14.435,"y":0.061,"z":-13.901},"mpu_temp":44.35,"mpu_valid":true} (len=184)[0m
+[0;32mI (19075) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19075) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19078) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18681,"accel":{"x":-0.085,"y":-0.100,"z":1.026},"gyro":{"x":-10.855,"y":1.771,"z":-13.305},"mpu_temp":44.37,"mpu_valid":true} (len=184)[0m
+[0;32mI (19096) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19098) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19106) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18681,"accel":{"x":-0.085,"y":-0.100,"z":1.026},"gyro":{"x":-10.855,"y":1.771,"z":-13.305},"mpu_temp":44.37,"mpu_valid":true} (len=184)[0m
+[0;32mI (19156) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19156) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19159) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18681,"accel":{"x":-0.085,"y":-0.100,"z":1.026},"gyro":{"x":-10.855,"y":1.771,"z":-13.305},"mpu_temp":44.37,"mpu_valid":true} (len=184)[0m
+[0;32mI (19177) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19179) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19187) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18681,"accel":{"x":-0.085,"y":-0.100,"z":1.026},"gyro":{"x":-10.855,"y":1.771,"z":-13.305},"mpu_temp":44.37,"mpu_valid":true} (len=184)[0m
+[0;32mI (19235) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19236) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19239) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18823,"accel":{"x":-0.024,"y":-0.093,"z":1.035},"gyro":{"x":-0.015,"y":10.321,"z":-1.458},"mpu_temp":44.35,"mpu_valid":true} (len=183)[0m
+[0;32mI (19256) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19258) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19266) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18823,"accel":{"x":-0.024,"y":-0.093,"z":1.035},"gyro":{"x":-0.015,"y":10.321,"z":-1.458},"mpu_temp":44.35,"mpu_valid":true} (len=183)[0m
+[0;32mI (19313) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19313) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19316) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18926,"accel":{"x":-0.072,"y":-0.093,"z":1.006},"gyro":{"x":4.160,"y":-36.237,"z":-15.687},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19334) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19336) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19344) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18926,"accel":{"x":-0.072,"y":-0.093,"z":1.006},"gyro":{"x":4.160,"y":-36.237,"z":-15.687},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19391) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19392) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19395) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18926,"accel":{"x":-0.072,"y":-0.093,"z":1.006},"gyro":{"x":4.160,"y":-36.237,"z":-15.687},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19412) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19414) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=1[0m
+[0;32mI (19423) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":true,"last_update":18926,"accel":{"x":-0.072,"y":-0.093,"z":1.006},"gyro":{"x":4.160,"y":-36.237,"z":-15.687},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19474) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19475) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19478) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.201,"y":-0.013,"z":0.868},"gyro":{"x":6.221,"y":-250.137,"z":-79.229},"mpu_temp":44.35,"mpu_valid":true} (len=185)[0m
+[0;32mI (19495) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19498) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19506) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.201,"y":-0.013,"z":0.868},"gyro":{"x":6.221,"y":-250.137,"z":-79.229},"mpu_temp":44.35,"mpu_valid":true} (len=185)[0m
+[0;32mI (19562) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19562) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19565) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.725,"y":-0.013,"z":0.834},"gyro":{"x":26.847,"y":-192.481,"z":-51.962},"mpu_temp":44.37,"mpu_valid":true} (len=186)[0m
+[0;32mI (19584) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19585) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19593) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.725,"y":-0.013,"z":0.834},"gyro":{"x":26.847,"y":-192.481,"z":-51.962},"mpu_temp":44.37,"mpu_valid":true} (len=186)[0m
+[0;32mI (19651) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19651) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19655) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.825,"y":0.046,"z":0.657},"gyro":{"x":28.244,"y":-68.145,"z":-13.374},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19672) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19674) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19682) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.825,"y":0.046,"z":0.657},"gyro":{"x":28.244,"y":-68.145,"z":-13.374},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19742) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19742) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19745) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.825,"y":0.046,"z":0.657},"gyro":{"x":28.244,"y":-68.145,"z":-13.374},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19764) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19765) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19773) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.825,"y":0.046,"z":0.657},"gyro":{"x":28.244,"y":-68.145,"z":-13.374},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (19820) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19820) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19825) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.844,"y":0.086,"z":0.566},"gyro":{"x":8.817,"y":-10.832,"z":-2.290},"mpu_temp":44.34,"mpu_valid":true} (len=182)[0m
+[0;32mI (19841) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19843) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19851) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.844,"y":0.086,"z":0.566},"gyro":{"x":8.817,"y":-10.832,"z":-2.290},"mpu_temp":44.34,"mpu_valid":true} (len=182)[0m
+[0;32mI (19976) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19976) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (19979) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.841,"y":0.084,"z":0.585},"gyro":{"x":-3.863,"y":7.863,"z":3.977},"mpu_temp":44.36,"mpu_valid":true} (len=180)[0m
+[0;32mI (19996) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (19998) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (20007) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.841,"y":0.084,"z":0.585},"gyro":{"x":-3.863,"y":7.863,"z":3.977},"mpu_temp":44.36,"mpu_valid":true} (len=180)[0m
+[0;32mI (20054) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (20055) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (20058) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.810,"y":0.055,"z":0.585},"gyro":{"x":0.328,"y":1.359,"z":-1.870},"mpu_temp":44.35,"mpu_valid":true} (len=180)[0m
+[0;32mI (20075) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (20077) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (20085) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.810,"y":0.055,"z":0.585},"gyro":{"x":0.328,"y":1.359,"z":-1.870},"mpu_temp":44.35,"mpu_valid":true} (len=180)[0m
+[0;32mI (20137) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (20138) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (20141) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.821,"y":0.111,"z":0.504},"gyro":{"x":3.656,"y":9.992,"z":-1.336},"mpu_temp":44.36,"mpu_valid":true} (len=180)[0m
+[0;32mI (20158) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (20160) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (20169) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.821,"y":0.111,"z":0.504},"gyro":{"x":3.656,"y":9.992,"z":-1.336},"mpu_temp":44.36,"mpu_valid":true} (len=180)[0m
+[0;32mI (20218) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (20218) HTTP_SERVER: Data read: HR=135.4, SpO2=86.1, valid=0[0m
+[0;32mI (20221) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":86.1,"valid":false,"last_update":18926,"accel":{"x":0.821,"y":0.111,"z":0.504},"gyro":{"x":3.656,"y":9.992,"z":-1.336},"mpu_temp":44.36,"mpu_valid":true} (len=180)[0m
+[0;32mI (20791) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (20791) HTTP_SERVER: Data read: HR=135.4, SpO2=85.1, valid=1[0m
+[0;32mI (20795) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":85.1,"valid":true,"last_update":20360,"accel":{"x":-0.324,"y":-0.261,"z":1.056},"gyro":{"x":-38.924,"y":115.802,"z":4.298},"mpu_temp":44.36,"mpu_valid":true} (len=184)[0m
+[0;32mI (21304) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (21304) HTTP_SERVER: Data read: HR=135.4, SpO2=84.7, valid=1[0m
+[0;32mI (21309) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":84.7,"valid":true,"last_update":20874,"accel":{"x":-0.396,"y":-0.195,"z":0.788},"gyro":{"x":-1.023,"y":23.198,"z":-0.053},"mpu_temp":44.34,"mpu_valid":true} (len=183)[0m
+[0;32mI (21815) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (21815) HTTP_SERVER: Data read: HR=135.4, SpO2=84.8, valid=1[0m
+[0;32mI (21818) HTTP_SERVER: Response sent: {"heart_rate":135.4,"spo2":84.8,"valid":true,"last_update":21377,"accel":{"x":-0.449,"y":-0.192,"z":0.719},"gyro":{"x":-0.481,"y":7.947,"z":-0.908},"mpu_temp":44.36,"mpu_valid":true} (len=182)[0m
+[0;32mI (22327) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (22327) HTTP_SERVER: Data read: HR=104.1, SpO2=86.0, valid=1[0m
+[0;32mI (22330) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":86.0,"valid":true,"last_update":21884,"accel":{"x":-0.380,"y":-0.255,"z":0.914},"gyro":{"x":5.214,"y":5.107,"z":1.641},"mpu_temp":44.38,"mpu_valid":true} (len=180)[0m
+[0;32mI (22736) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (22737) HTTP_SERVER: Data read: HR=104.1, SpO2=85.8, valid=1[0m
+[0;32mI (22740) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":85.8,"valid":true,"last_update":22287,"accel":{"x":-0.266,"y":-0.165,"z":0.763},"gyro":{"x":5.542,"y":-9.321,"z":-10.565},"mpu_temp":44.36,"mpu_valid":true} (len=183)[0m
+[0;32mI (23251) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (23251) HTTP_SERVER: Data read: HR=104.1, SpO2=85.3, valid=1[0m
+[0;32mI (23254) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":85.3,"valid":true,"last_update":22790,"accel":{"x":-0.112,"y":-0.116,"z":0.967},"gyro":{"x":42.565,"y":-73.191,"z":-23.542},"mpu_temp":44.36,"mpu_valid":true} (len=185)[0m
+[0;32mI (23768) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (23769) HTTP_SERVER: Data read: HR=104.1, SpO2=85.0, valid=1[0m
+[0;32mI (23772) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":85.0,"valid":true,"last_update":23299,"accel":{"x":-0.552,"y":-0.265,"z":0.659},"gyro":{"x":-11.901,"y":37.573,"z":-26.130},"mpu_temp":44.38,"mpu_valid":true} (len=185)[0m
+[0;32mI (24272) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (24273) HTTP_SERVER: Data read: HR=104.1, SpO2=86.6, valid=1[0m
+[0;32mI (24277) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":86.6,"valid":true,"last_update":23810,"accel":{"x":-0.278,"y":-0.097,"z":0.734},"gyro":{"x":155.924,"y":87.359,"z":-169.069},"mpu_temp":44.36,"mpu_valid":true} (len=186)[0m
+[0;32mI (24784) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (24785) HTTP_SERVER: Data read: HR=104.1, SpO2=88.2, valid=1[0m
+[0;32mI (24788) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":88.2,"valid":true,"last_update":24321,"accel":{"x":0.150,"y":0.037,"z":0.970},"gyro":{"x":124.000,"y":24.580,"z":-56.168},"mpu_temp":44.37,"mpu_valid":true} (len=183)[0m
+[0;32mI (25296) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (25297) HTTP_SERVER: Data read: HR=104.1, SpO2=88.1, valid=1[0m
+[0;32mI (25300) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":88.1,"valid":true,"last_update":24826,"accel":{"x":-0.123,"y":0.273,"z":0.935},"gyro":{"x":35.565,"y":73.679,"z":-11.885},"mpu_temp":44.37,"mpu_valid":true} (len=183)[0m
+[0;32mI (25809) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (25809) HTTP_SERVER: Data read: HR=104.1, SpO2=88.6, valid=1[0m
+[0;32mI (25812) HTTP_SERVER: Response sent: {"heart_rate":104.1,"spo2":88.6,"valid":true,"last_update":25343,"accel":{"x":0.023,"y":0.163,"z":1.000},"gyro":{"x":-2.023,"y":-8.198,"z":-22.122},"mpu_temp":44.38,"mpu_valid":true} (len=182)[0m
+[0;32mI (26323) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (26323) HTTP_SERVER: Data read: HR=131.7, SpO2=89.4, valid=1[0m
+[0;32mI (26326) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.4,"valid":true,"last_update":25850,"accel":{"x":0.006,"y":0.362,"z":0.957},"gyro":{"x":17.061,"y":9.321,"z":-1.115},"mpu_temp":44.39,"mpu_valid":true} (len=180)[0m
+[0;32mI (26730) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (26731) HTTP_SERVER: Data read: HR=131.7, SpO2=89.2, valid=1[0m
+[0;32mI (26736) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.2,"valid":true,"last_update":26268,"accel":{"x":-0.040,"y":0.379,"z":0.933},"gyro":{"x":2.962,"y":34.000,"z":-16.000},"mpu_temp":44.43,"mpu_valid":true} (len=182)[0m
+[0;32mI (27244) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (27245) HTTP_SERVER: Data read: HR=131.7, SpO2=89.1, valid=1[0m
+[0;32mI (27247) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.1,"valid":true,"last_update":26772,"accel":{"x":0.008,"y":0.627,"z":0.778},"gyro":{"x":99.969,"y":-19.878,"z":-15.939},"mpu_temp":44.40,"mpu_valid":true} (len=183)[0m
+[0;32mI (27754) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (27755) HTTP_SERVER: Data read: HR=131.7, SpO2=89.1, valid=1[0m
+[0;32mI (27758) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.1,"valid":true,"last_update":27286,"accel":{"x":-0.184,"y":0.828,"z":0.587},"gyro":{"x":0.389,"y":14.611,"z":-4.122},"mpu_temp":44.42,"mpu_valid":true} (len=181)[0m
+[0;32mI (28266) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (28266) HTTP_SERVER: Data read: HR=131.7, SpO2=89.0, valid=1[0m
+[0;32mI (28270) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.0,"valid":true,"last_update":27801,"accel":{"x":-0.102,"y":0.910,"z":0.590},"gyro":{"x":-30.336,"y":11.985,"z":-1.687},"mpu_temp":44.41,"mpu_valid":true} (len=183)[0m
+[0;32mI (28779) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (28780) HTTP_SERVER: Data read: HR=131.7, SpO2=88.9, valid=1[0m
+[0;32mI (28783) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":88.9,"valid":true,"last_update":28308,"accel":{"x":-0.344,"y":0.173,"z":0.866},"gyro":{"x":-10.885,"y":-17.901,"z":33.893},"mpu_temp":44.42,"mpu_valid":true} (len=184)[0m
+[0;32mI (29290) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (29290) HTTP_SERVER: Data read: HR=131.7, SpO2=88.8, valid=1[0m
+[0;32mI (29294) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":88.8,"valid":true,"last_update":28827,"accel":{"x":-0.733,"y":0.031,"z":1.066},"gyro":{"x":-65.069,"y":28.580,"z":250.130},"mpu_temp":44.41,"mpu_valid":true} (len=184)[0m
+[0;32mI (29802) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (29802) HTTP_SERVER: Data read: HR=131.7, SpO2=89.4, valid=1[0m
+[0;32mI (29806) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.4,"valid":true,"last_update":29332,"accel":{"x":0.050,"y":0.386,"z":0.454},"gyro":{"x":-106.557,"y":-41.748,"z":121.977},"mpu_temp":44.43,"mpu_valid":true} (len=185)[0m
+[0;32mI (29829) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (29829) HTTP_SERVER: Data read: HR=131.7, SpO2=89.5, valid=1[0m
+[0;32mI (29833) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.5,"valid":true,"last_update":29440,"accel":{"x":-0.488,"y":0.471,"z":1.072},"gyro":{"x":-51.924,"y":86.947,"z":2.267},"mpu_temp":44.42,"mpu_valid":true} (len=182)[0m
+[0;32mI (30314) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (30314) HTTP_SERVER: Data read: HR=131.7, SpO2=89.1, valid=1[0m
+[0;32mI (30318) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":89.1,"valid":true,"last_update":29850,"accel":{"x":-0.027,"y":0.177,"z":1.020},"gyro":{"x":-45.466,"y":-76.137,"z":-32.664},"mpu_temp":44.42,"mpu_valid":true} (len=185)[0m
+[0;33mW (30640) MAIN: ⚠️ CẢNH BÁO: RUNG TAY - Tremor phát hiện | Accel: 1.23g[0m
+[0;32mI (30827) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (30827) HTTP_SERVER: Data read: HR=131.7, SpO2=87.0, valid=1[0m
+[0;32mI (30830) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":87.0,"valid":true,"last_update":30356,"accel":{"x":0.425,"y":-0.004,"z":0.858},"gyro":{"x":18.634,"y":-69.939,"z":32.985},"mpu_temp":44.42,"mpu_valid":true} (len=183)[0m
+[0;32mI (30947) MAIN: ✅ Cảnh báo đã tắt - Giá trị trở về bình thường[0m
+[0;32mI (31236) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (31236) HTTP_SERVER: Data read: HR=131.7, SpO2=86.4, valid=1[0m
+[0;32mI (31240) HTTP_SERVER: Response sent: {"heart_rate":131.7,"spo2":86.4,"valid":true,"last_update":30774,"accel":{"x":0.837,"y":-0.162,"z":0.645},"gyro":{"x":-10.573,"y":-25.489,"z":-3.069},"mpu_temp":44.40,"mpu_valid":true} (len=184)[0m
+[0;32mI (31750) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (31750) HTTP_SERVER: Data read: HR=109.7, SpO2=87.3, valid=1[0m
+[0;32mI (31753) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":87.3,"valid":true,"last_update":31282,"accel":{"x":0.896,"y":-0.098,"z":0.458},"gyro":{"x":-0.412,"y":6.427,"z":0.565},"mpu_temp":44.44,"mpu_valid":true} (len=180)[0m
+[0;32mI (32262) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (32262) HTTP_SERVER: Data read: HR=109.7, SpO2=87.0, valid=1[0m
+[0;32mI (32265) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":87.0,"valid":true,"last_update":31791,"accel":{"x":0.950,"y":-0.080,"z":0.464},"gyro":{"x":-1.519,"y":23.130,"z":3.603},"mpu_temp":44.43,"mpu_valid":true} (len=181)[0m
+[0;32mI (32772) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (32772) HTTP_SERVER: Data read: HR=109.7, SpO2=86.5, valid=1[0m
+[0;32mI (32775) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":86.5,"valid":true,"last_update":32310,"accel":{"x":0.700,"y":-0.167,"z":0.582},"gyro":{"x":-18.145,"y":111.122,"z":1.924},"mpu_temp":44.40,"mpu_valid":true} (len=183)[0m
+[0;32mI (33285) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (33285) HTTP_SERVER: Data read: HR=109.7, SpO2=87.0, valid=1[0m
+[0;32mI (33288) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":87.0,"valid":true,"last_update":32813,"accel":{"x":-0.061,"y":-0.157,"z":1.001},"gyro":{"x":9.725,"y":29.740,"z":2.550},"mpu_temp":44.44,"mpu_valid":true} (len=181)[0m
+[0;32mI (33796) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (33796) HTTP_SERVER: Data read: HR=109.7, SpO2=87.5, valid=1[0m
+[0;32mI (33799) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":87.5,"valid":true,"last_update":33333,"accel":{"x":-0.159,"y":-0.136,"z":1.037},"gyro":{"x":-1.015,"y":10.809,"z":-0.214},"mpu_temp":44.44,"mpu_valid":true} (len=183)[0m
+[0;32mI (34308) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (34308) HTTP_SERVER: Data read: HR=109.7, SpO2=87.6, valid=1[0m
+[0;32mI (34311) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":87.6,"valid":true,"last_update":33837,"accel":{"x":-0.633,"y":0.013,"z":0.573},"gyro":{"x":23.504,"y":94.405,"z":12.076},"mpu_temp":44.42,"mpu_valid":true} (len=182)[0m
+[0;32mI (34820) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (34820) HTTP_SERVER: Data read: HR=109.7, SpO2=87.1, valid=1[0m
+[0;32mI (34823) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":87.1,"valid":true,"last_update":34355,"accel":{"x":-0.793,"y":-0.032,"z":0.481},"gyro":{"x":14.000,"y":17.397,"z":-1.061},"mpu_temp":44.45,"mpu_valid":true} (len=183)[0m
+[0;32mI (35332) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (35332) HTTP_SERVER: Data read: HR=109.7, SpO2=86.8, valid=1[0m
+[0;32mI (35335) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":86.8,"valid":true,"last_update":34861,"accel":{"x":-0.823,"y":-0.046,"z":0.495},"gyro":{"x":2.122,"y":9.794,"z":5.000},"mpu_temp":44.44,"mpu_valid":true} (len=180)[0m
+[0;32mI (35743) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (35743) HTTP_SERVER: Data read: HR=109.7, SpO2=86.7, valid=1[0m
+[0;32mI (35746) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":86.7,"valid":true,"last_update":35272,"accel":{"x":-0.826,"y":-0.097,"z":0.644},"gyro":{"x":-4.366,"y":-46.542,"z":-9.107},"mpu_temp":44.43,"mpu_valid":true} (len=184)[0m
+[0;32mI (36253) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (36254) HTTP_SERVER: Data read: HR=109.7, SpO2=86.4, valid=1[0m
+[0;32mI (36257) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":86.4,"valid":true,"last_update":35788,"accel":{"x":-0.066,"y":-0.119,"z":0.992},"gyro":{"x":-0.496,"y":17.595,"z":-5.229},"mpu_temp":44.45,"mpu_valid":true} (len=183)[0m
+[0;32mI (36765) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (36766) HTTP_SERVER: Data read: HR=109.7, SpO2=85.9, valid=1[0m
+[0;32mI (36769) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":85.9,"valid":true,"last_update":36295,"accel":{"x":0.161,"y":-0.168,"z":1.024},"gyro":{"x":-7.466,"y":4.855,"z":5.237},"mpu_temp":44.44,"mpu_valid":true} (len=180)[0m
+[0;32mI (37277) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (37278) HTTP_SERVER: Data read: HR=109.7, SpO2=85.5, valid=1[0m
+[0;32mI (37281) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":85.5,"valid":true,"last_update":36811,"accel":{"x":0.041,"y":-0.026,"z":0.836},"gyro":{"x":-47.939,"y":-0.229,"z":-12.061},"mpu_temp":44.44,"mpu_valid":true} (len=184)[0m
+[0;32mI (37789) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (37790) HTTP_SERVER: Data read: HR=109.7, SpO2=85.4, valid=1[0m
+[0;32mI (37793) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":85.4,"valid":true,"last_update":37319,"accel":{"x":0.110,"y":-0.695,"z":0.749},"gyro":{"x":-0.145,"y":5.924,"z":-4.397},"mpu_temp":44.45,"mpu_valid":true} (len=181)[0m
+[0;32mI (38302) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (38303) HTTP_SERVER: Data read: HR=109.7, SpO2=84.7, valid=1[0m
+[0;32mI (38306) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.7,"valid":true,"last_update":37837,"accel":{"x":0.036,"y":-0.690,"z":0.713},"gyro":{"x":0.282,"y":13.084,"z":0.893},"mpu_temp":44.47,"mpu_valid":true} (len=180)[0m
+[0;32mI (38813) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (38814) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (38817) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.099,"y":-0.448,"z":0.610},"gyro":{"x":157.191,"y":59.771,"z":-16.924},"mpu_temp":44.44,"mpu_valid":true} (len=186)[0m
+[0;33mW (39140) MAIN: ⚠️ CẢNH BÁO: RUNG TAY - Tremor phát hiện | Accel: 1.14g[0m
+[0;32mI (39223) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (39224) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (39227) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.148,"y":0.299,"z":1.093},"gyro":{"x":55.443,"y":9.916,"z":31.748},"mpu_temp":44.45,"mpu_valid":true} (len=182)[0m
+[0;32mI (39440) MAIN: ✅ Cảnh báo đã tắt - Giá trị trở về bình thường[0m
+[0;32mI (39837) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (39838) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (39841) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.104,"y":0.466,"z":0.976},"gyro":{"x":-1.802,"y":5.427,"z":3.221},"mpu_temp":44.43,"mpu_valid":true} (len=181)[0m
+[0;32mI (40047) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (40048) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (40051) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.068,"y":0.511,"z":0.911},"gyro":{"x":2.183,"y":12.626,"z":-2.038},"mpu_temp":44.44,"mpu_valid":true} (len=182)[0m
+[0;32mI (40255) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (40255) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (40258) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.095,"y":0.531,"z":0.810},"gyro":{"x":12.092,"y":9.496,"z":0.718},"mpu_temp":44.45,"mpu_valid":true} (len=181)[0m
+[0;32mI (40764) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (40765) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (40768) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.022,"y":0.018,"z":1.135},"gyro":{"x":-182.466,"y":-76.000,"z":19.656},"mpu_temp":44.44,"mpu_valid":true} (len=185)[0m
+[0;32mI (41289) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (41290) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (41293) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.247,"y":-0.260,"z":0.906},"gyro":{"x":-27.298,"y":-0.351,"z":0.687},"mpu_temp":44.47,"mpu_valid":true} (len=183)[0m
+[0;32mI (41815) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (41815) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (41818) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.249,"y":-0.495,"z":0.893},"gyro":{"x":-4.542,"y":11.366,"z":-0.290},"mpu_temp":44.43,"mpu_valid":true} (len=183)[0m
+[0;32mI (42303) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (42304) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (42306) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.224,"y":-0.503,"z":0.954},"gyro":{"x":11.748,"y":6.695,"z":-4.580},"mpu_temp":44.44,"mpu_valid":true} (len=182)[0m
+[0;32mI (42807) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (42807) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (42810) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.079,"y":0.134,"z":1.033},"gyro":{"x":15.817,"y":42.702,"z":9.313},"mpu_temp":44.47,"mpu_valid":true} (len=181)[0m
+[0;32mI (43324) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (43325) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (43328) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.031,"y":0.336,"z":0.952},"gyro":{"x":7.298,"y":11.084,"z":-0.725},"mpu_temp":44.47,"mpu_valid":true} (len=182)[0m
+[0;32mI (43831) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (43831) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (43834) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.072,"y":0.312,"z":1.052},"gyro":{"x":-33.992,"y":-25.305,"z":-16.511},"mpu_temp":44.45,"mpu_valid":true} (len=186)[0m
+[0;32mI (44343) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (44343) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (44346) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.179,"y":-0.467,"z":0.896},"gyro":{"x":-26.053,"y":5.031,"z":-5.412},"mpu_temp":44.47,"mpu_valid":true} (len=183)[0m
+[0;32mI (44754) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (44755) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (44760) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.259,"y":-0.539,"z":0.802},"gyro":{"x":-1.008,"y":15.275,"z":3.695},"mpu_temp":44.47,"mpu_valid":true} (len=182)[0m
+[0;32mI (45264) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (45265) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (45268) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.262,"y":-0.580,"z":0.821},"gyro":{"x":14.924,"y":4.748,"z":1.794},"mpu_temp":44.45,"mpu_valid":true} (len=181)[0m
+[0;32mI (45777) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (45778) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (45781) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.232,"y":0.250,"z":0.931},"gyro":{"x":49.237,"y":55.931,"z":-17.458},"mpu_temp":44.48,"mpu_valid":true} (len=183)[0m
+[0;32mI (46289) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (46289) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (46292) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.074,"y":0.283,"z":0.982},"gyro":{"x":3.954,"y":17.206,"z":0.901},"mpu_temp":44.47,"mpu_valid":true} (len=180)[0m
+[0;32mI (46801) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (46801) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (46804) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.104,"y":0.200,"z":1.069},"gyro":{"x":-16.023,"y":-10.824,"z":-1.282},"mpu_temp":44.47,"mpu_valid":true} (len=184)[0m
+[0;32mI (47314) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (47314) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (47317) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.339,"y":-0.456,"z":0.907},"gyro":{"x":-66.244,"y":3.649,"z":26.710},"mpu_temp":44.47,"mpu_valid":true} (len=183)[0m
+[0;32mI (47835) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (47835) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (47838) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.137,"y":-0.659,"z":0.760},"gyro":{"x":-9.435,"y":7.313,"z":-9.252},"mpu_temp":44.45,"mpu_valid":true} (len=182)[0m
+[0;32mI (48337) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (48337) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (48341) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.217,"y":0.112,"z":0.917},"gyro":{"x":65.473,"y":-9.031,"z":12.145},"mpu_temp":44.46,"mpu_valid":true} (len=182)[0m
+[0;32mI (48746) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (48747) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (48750) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.280,"y":0.357,"z":0.942},"gyro":{"x":4.092,"y":29.519,"z":-26.901},"mpu_temp":44.47,"mpu_valid":true} (len=182)[0m
+[0;32mI (49260) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (49261) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (49264) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.210,"y":0.460,"z":0.794},"gyro":{"x":-23.420,"y":1.779,"z":-0.382},"mpu_temp":44.45,"mpu_valid":true} (len=182)[0m
+[0;32mI (49771) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (49772) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (49775) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.506,"y":-0.233,"z":0.905},"gyro":{"x":-1.107,"y":-14.618,"z":-2.412},"mpu_temp":44.46,"mpu_valid":true} (len=185)[0m
+[0;32mI (49872) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (49873) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (49876) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.511,"y":-0.239,"z":0.786},"gyro":{"x":-27.374,"y":38.641,"z":-4.702},"mpu_temp":44.46,"mpu_valid":true} (len=185)[0m
+[0;32mI (50282) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (50282) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (50286) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.623,"y":-0.283,"z":0.798},"gyro":{"x":8.099,"y":0.008,"z":-3.252},"mpu_temp":44.45,"mpu_valid":true} (len=182)[0m
+[0;32mI (50794) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (50795) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (50798) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.757,"y":-0.246,"z":0.650},"gyro":{"x":6.962,"y":-9.840,"z":-13.931},"mpu_temp":44.46,"mpu_valid":true} (len=184)[0m
+[0;32mI (51306) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (51307) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (51310) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.458,"y":-0.089,"z":1.031},"gyro":{"x":70.153,"y":-71.443,"z":10.473},"mpu_temp":44.47,"mpu_valid":true} (len=185)[0m
+[0;32mI (51819) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (51820) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (51823) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.666,"y":0.297,"z":0.730},"gyro":{"x":-7.756,"y":-70.641,"z":-0.252},"mpu_temp":44.47,"mpu_valid":true} (len=183)[0m
+[0;32mI (52330) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (52331) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (52334) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.761,"y":0.019,"z":0.882},"gyro":{"x":-17.244,"y":-13.725,"z":-4.084},"mpu_temp":44.46,"mpu_valid":true} (len=184)[0m
+[0;33mW (52758) MAIN: ⚠️ CẢNH BÁO: ĐANG CHẠY - Hoạt động mạnh | Accel: 1.51g[0m
+[0;32mI (52842) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (52843) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (52846) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.971,"y":1.036,"z":0.528},"gyro":{"x":32.084,"y":-12.947,"z":9.092},"mpu_temp":44.43,"mpu_valid":true} (len=182)[0m
+[0;32mI (53058) MAIN: ✅ Cảnh báo đã tắt - Giá trị trở về bình thường[0m
+[0;32mI (53252) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (53252) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (53255) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.008,"y":-0.007,"z":0.500},"gyro":{"x":-49.481,"y":-30.580,"z":5.511},"mpu_temp":44.46,"mpu_valid":true} (len=184)[0m
+[0;32mI (53764) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (53764) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (53767) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.087,"y":0.122,"z":0.130},"gyro":{"x":56.023,"y":-37.000,"z":5.847},"mpu_temp":44.46,"mpu_valid":true} (len=182)[0m
+[0;32mI (54277) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (54277) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (54280) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.015,"y":0.086,"z":0.100},"gyro":{"x":3.740,"y":-3.450,"z":-1.183},"mpu_temp":44.47,"mpu_valid":true} (len=181)[0m
+[0;32mI (54788) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (54788) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (54791) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.030,"y":0.083,"z":0.036},"gyro":{"x":4.733,"y":1.466,"z":-3.183},"mpu_temp":44.47,"mpu_valid":true} (len=180)[0m
+[0;32mI (55300) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (55300) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (55303) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.004,"y":0.051,"z":0.070},"gyro":{"x":-2.115,"y":9.389,"z":-1.496},"mpu_temp":44.46,"mpu_valid":true} (len=181)[0m
+[0;32mI (55812) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (55812) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (55815) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.041,"y":0.084,"z":0.043},"gyro":{"x":-2.084,"y":6.191,"z":-1.504},"mpu_temp":44.47,"mpu_valid":true} (len=181)[0m
+[0;32mI (56324) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (56324) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (56327) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":1.008,"y":0.093,"z":0.051},"gyro":{"x":-2.374,"y":3.809,"z":-3.466},"mpu_temp":44.47,"mpu_valid":true} (len=181)[0m
+[0;32mI (56837) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (56837) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (56840) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.692,"y":-0.113,"z":0.754},"gyro":{"x":-29.198,"y":143.137,"z":1.740},"mpu_temp":44.47,"mpu_valid":true} (len=184)[0m
+[0;32mI (57348) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (57349) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (57352) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.221,"y":-0.202,"z":1.009},"gyro":{"x":2.962,"y":36.031,"z":9.870},"mpu_temp":44.46,"mpu_valid":true} (len=181)[0m
+[0;32mI (57757) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (57758) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (57761) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.226,"y":-0.190,"z":0.984},"gyro":{"x":2.634,"y":7.863,"z":0.649},"mpu_temp":44.49,"mpu_valid":true} (len=180)[0m
+[0;32mI (58269) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (58270) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (58273) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.170,"y":-0.200,"z":1.019},"gyro":{"x":4.557,"y":6.924,"z":8.763},"mpu_temp":44.47,"mpu_valid":true} (len=180)[0m
+[0;32mI (58781) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (58782) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (58785) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.173,"y":-0.185,"z":1.015},"gyro":{"x":3.336,"y":8.183,"z":0.977},"mpu_temp":44.47,"mpu_valid":true} (len=180)[0m
+[0;32mI (59294) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (59295) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (59298) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.024,"y":-0.093,"z":1.086},"gyro":{"x":3.359,"y":22.893,"z":1.824},"mpu_temp":44.47,"mpu_valid":true} (len=182)[0m
+[0;32mI (59805) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (59806) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (59809) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.020,"y":0.059,"z":1.024},"gyro":{"x":16.466,"y":-6.145,"z":-6.351},"mpu_temp":44.49,"mpu_valid":true} (len=183)[0m
+[0;32mI (59836) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (59837) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (59840) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.100,"y":0.010,"z":1.097},"gyro":{"x":5.015,"y":15.893,"z":-5.573},"mpu_temp":44.47,"mpu_valid":true} (len=181)[0m
+[0;32mI (60317) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (60318) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (60321) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":-0.023,"y":0.067,"z":1.017},"gyro":{"x":-7.374,"y":1.603,"z":-0.855},"mpu_temp":44.49,"mpu_valid":true} (len=182)[0m
+[0;32mI (60829) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (60830) HTTP_SERVER: Data read: HR=109.7, SpO2=84.4, valid=0[0m
+[0;32mI (60833) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.4,"valid":false,"last_update":38142,"accel":{"x":0.077,"y":-0.009,"z":1.055},"gyro":{"x":-0.924,"y":11.237,"z":3.214},"mpu_temp":44.47,"mpu_valid":true} (len=182)[0m
+[0;32mI (61342) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (61343) HTTP_SERVER: Data read: HR=109.7, SpO2=89.4, valid=1[0m
+[0;32mI (61346) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":89.4,"valid":true,"last_update":60871,"accel":{"x":0.101,"y":0.041,"z":0.995},"gyro":{"x":4.969,"y":-14.473,"z":2.595},"mpu_temp":44.48,"mpu_valid":true} (len=180)[0m
+[0;32mI (61854) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (61855) HTTP_SERVER: Data read: HR=109.7, SpO2=86.2, valid=1[0m
+[0;32mI (61858) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":86.2,"valid":true,"last_update":61389,"accel":{"x":0.051,"y":0.030,"z":0.992},"gyro":{"x":3.626,"y":4.939,"z":-0.939},"mpu_temp":44.49,"mpu_valid":true} (len=179)[0m
+[0;32mI (62263) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (62263) HTTP_SERVER: Data read: HR=109.7, SpO2=85.0, valid=1[0m
+[0;32mI (62266) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":85.0,"valid":true,"last_update":61794,"accel":{"x":-0.101,"y":-0.064,"z":1.084},"gyro":{"x":-2.237,"y":-48.824,"z":2.168},"mpu_temp":44.49,"mpu_valid":true} (len=183)[0m
+[0;32mI (62775) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (62775) HTTP_SERVER: Data read: HR=109.7, SpO2=84.1, valid=1[0m
+[0;32mI (62780) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":84.1,"valid":true,"last_update":62304,"accel":{"x":0.448,"y":-0.659,"z":1.138},"gyro":{"x":-225.473,"y":60.992,"z":-60.649},"mpu_temp":44.50,"mpu_valid":true} (len=185)[0m
+[0;32mI (63287) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (63287) HTTP_SERVER: Data read: HR=109.7, SpO2=83.5, valid=1[0m
+[0;32mI (63290) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":83.5,"valid":true,"last_update":62823,"accel":{"x":0.285,"y":-0.681,"z":0.569},"gyro":{"x":-26.840,"y":-9.374,"z":15.695},"mpu_temp":44.49,"mpu_valid":true} (len=183)[0m
+[0;32mI (63800) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (63800) HTTP_SERVER: Data read: HR=109.7, SpO2=82.8, valid=1[0m
+[0;32mI (63805) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":82.8,"valid":true,"last_update":63328,"accel":{"x":0.364,"y":-1.051,"z":-0.004},"gyro":{"x":-51.771,"y":-6.412,"z":3.305},"mpu_temp":44.49,"mpu_valid":true} (len=183)[0m
+[0;32mI (64226) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (64227) HTTP_SERVER: Data read: HR=109.7, SpO2=83.5, valid=1[0m
+[0;32mI (64230) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":83.5,"valid":true,"last_update":63748,"accel":{"x":0.256,"y":-0.844,"z":-0.424},"gyro":{"x":-108.588,"y":-8.015,"z":-0.275},"mpu_temp":44.49,"mpu_valid":true} (len=185)[0m
+[0;32mI (64829) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (64829) HTTP_SERVER: Data read: HR=109.7, SpO2=83.3, valid=1[0m
+[0;32mI (64832) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":83.3,"valid":true,"last_update":64369,"accel":{"x":0.122,"y":-0.407,"z":-0.824},"gyro":{"x":-54.542,"y":-18.611,"z":51.214},"mpu_temp":44.49,"mpu_valid":true} (len=185)[0m
+[0;32mI (65248) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (65249) HTTP_SERVER: Data read: HR=109.7, SpO2=83.0, valid=1[0m
+[0;32mI (65251) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":83.0,"valid":true,"last_update":64779,"accel":{"x":0.097,"y":-0.053,"z":-0.991},"gyro":{"x":-21.695,"y":-1.962,"z":1.382},"mpu_temp":44.50,"mpu_valid":true} (len=183)[0m
+[0;32mI (65852) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (65853) HTTP_SERVER: Data read: HR=109.7, SpO2=82.5, valid=1[0m
+[0;32mI (65856) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":82.5,"valid":true,"last_update":65391,"accel":{"x":0.075,"y":0.038,"z":-1.013},"gyro":{"x":4.176,"y":-1.221,"z":-8.481},"mpu_temp":44.50,"mpu_valid":true} (len=181)[0m
+[0;32mI (66260) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (66260) HTTP_SERVER: Data read: HR=109.7, SpO2=82.1, valid=1[0m
+[0;32mI (66263) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":82.1,"valid":true,"last_update":65795,"accel":{"x":0.036,"y":0.044,"z":-0.974},"gyro":{"x":-6.504,"y":4.015,"z":-10.626},"mpu_temp":44.50,"mpu_valid":true} (len=182)[0m
+[0;32mI (66769) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (66769) HTTP_SERVER: Data read: HR=109.7, SpO2=81.4, valid=1[0m
+[0;32mI (66772) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":81.4,"valid":true,"last_update":66307,"accel":{"x":0.071,"y":0.024,"z":-0.994},"gyro":{"x":1.481,"y":6.985,"z":-2.908},"mpu_temp":44.49,"mpu_valid":true} (len=180)[0m
+[0;32mI (66990) MAIN: HTTP Server running - HR: 109.7 BPM, SpO2: 81.5%, Valid: Yes[0m
+[0;32mI (67281) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (67281) HTTP_SERVER: Data read: HR=109.7, SpO2=80.8, valid=1[0m
+[0;32mI (67284) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":80.8,"valid":true,"last_update":66812,"accel":{"x":0.042,"y":0.017,"z":-1.050},"gyro":{"x":10.824,"y":5.305,"z":7.916},"mpu_temp":44.49,"mpu_valid":true} (len=180)[0m
+[0;32mI (67793) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (67793) HTTP_SERVER: Data read: HR=109.7, SpO2=80.8, valid=1[0m
+[0;32mI (67796) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":80.8,"valid":true,"last_update":67329,"accel":{"x":0.471,"y":-0.829,"z":0.128},"gyro":{"x":137.527,"y":-23.305,"z":-6.252},"mpu_temp":44.51,"mpu_valid":true} (len=184)[0m
+[0;32mI (68305) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (68305) HTTP_SERVER: Data read: HR=109.7, SpO2=79.9, valid=1[0m
+[0;32mI (68308) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.9,"valid":true,"last_update":67834,"accel":{"x":-0.212,"y":-0.311,"z":1.020},"gyro":{"x":84.145,"y":22.679,"z":32.183},"mpu_temp":44.52,"mpu_valid":true} (len=183)[0m
+[0;33mW (68428) MAIN: ⚠️ CẢNH BÁO: RUNG TAY - Tremor phát hiện | Accel: 1.02g[0m
+[0;32mI (68729) MAIN: ✅ Cảnh báo đã tắt - Giá trị trở về bình thường[0m
+[0;32mI (68818) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (68818) HTTP_SERVER: Data read: HR=109.7, SpO2=79.3, valid=1[0m
+[0;32mI (68821) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.3,"valid":true,"last_update":68350,"accel":{"x":-0.374,"y":-0.021,"z":1.052},"gyro":{"x":6.901,"y":23.489,"z":1.198},"mpu_temp":44.50,"mpu_valid":true} (len=181)[0m
+[0;32mI (69329) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (69329) HTTP_SERVER: Data read: HR=109.7, SpO2=79.0, valid=1[0m
+[0;32mI (69332) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.0,"valid":true,"last_update":68859,"accel":{"x":0.060,"y":-0.127,"z":1.240},"gyro":{"x":3.405,"y":54.153,"z":24.443},"mpu_temp":44.50,"mpu_valid":true} (len=181)[0m
+[0;32mI (69841) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (69841) HTTP_SERVER: Data read: HR=109.7, SpO2=78.8, valid=1[0m
+[0;32mI (69844) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":78.8,"valid":true,"last_update":69377,"accel":{"x":-0.927,"y":-0.029,"z":0.388},"gyro":{"x":-0.267,"y":72.740,"z":5.305},"mpu_temp":44.51,"mpu_valid":true} (len=182)[0m
+[0;32mI (70049) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (70049) HTTP_SERVER: Data read: HR=109.7, SpO2=79.6, valid=1[0m
+[0;32mI (70052) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.6,"valid":true,"last_update":69579,"accel":{"x":-0.994,"y":-0.114,"z":0.515},"gyro":{"x":2.214,"y":51.603,"z":0.733},"mpu_temp":44.52,"mpu_valid":true} (len=181)[0m
+[0;32mI (70354) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (70354) HTTP_SERVER: Data read: HR=109.7, SpO2=79.3, valid=1[0m
+[0;32mI (70357) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.3,"valid":true,"last_update":69888,"accel":{"x":-0.875,"y":-0.104,"z":0.427},"gyro":{"x":0.718,"y":2.740,"z":-2.847},"mpu_temp":44.50,"mpu_valid":true} (len=181)[0m
+[0;32mI (70764) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (70765) HTTP_SERVER: Data read: HR=109.7, SpO2=79.3, valid=1[0m
+[0;32mI (70768) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.3,"valid":true,"last_update":70294,"accel":{"x":-0.898,"y":-0.086,"z":0.330},"gyro":{"x":-1.099,"y":11.809,"z":-3.824},"mpu_temp":44.52,"mpu_valid":true} (len=183)[0m
+[0;32mI (71274) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (71275) HTTP_SERVER: Data read: HR=109.7, SpO2=79.4, valid=1[0m
+[0;32mI (71279) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.4,"valid":true,"last_update":70813,"accel":{"x":-0.410,"y":-0.120,"z":0.991},"gyro":{"x":76.840,"y":-191.718,"z":-17.504},"mpu_temp":44.53,"mpu_valid":true} (len=186)[0m
+[0;32mI (71786) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (71787) HTTP_SERVER: Data read: HR=109.7, SpO2=79.5, valid=1[0m
+[0;32mI (71790) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.5,"valid":true,"last_update":71318,"accel":{"x":0.479,"y":0.088,"z":0.864},"gyro":{"x":-0.740,"y":-73.634,"z":-3.008},"mpu_temp":44.49,"mpu_valid":true} (len=182)[0m
+[0;32mI (72307) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (72307) HTTP_SERVER: Data read: HR=109.7, SpO2=79.5, valid=1[0m
+[0;32mI (72310) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.5,"valid":true,"last_update":71836,"accel":{"x":0.837,"y":0.090,"z":0.559},"gyro":{"x":0.634,"y":-19.702,"z":-0.916},"mpu_temp":44.49,"mpu_valid":true} (len=181)[0m
+[0;32mI (72811) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (72812) HTTP_SERVER: Data read: HR=109.7, SpO2=79.5, valid=1[0m
+[0;32mI (72815) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.5,"valid":true,"last_update":72348,"accel":{"x":0.416,"y":-0.292,"z":1.052},"gyro":{"x":-61.542,"y":238.160,"z":38.840},"mpu_temp":44.48,"mpu_valid":true} (len=184)[0m
+[0;32mI (73322) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (73323) HTTP_SERVER: Data read: HR=109.7, SpO2=79.5, valid=1[0m
+[0;32mI (73326) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":79.5,"valid":true,"last_update":72862,"accel":{"x":-0.410,"y":-0.069,"z":1.057},"gyro":{"x":119.992,"y":67.786,"z":21.206},"mpu_temp":44.51,"mpu_valid":true} (len=184)[0m
+[0;32mI (73835) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (73835) HTTP_SERVER: Data read: HR=109.7, SpO2=78.6, valid=1[0m
+[0;32mI (73838) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":78.6,"valid":true,"last_update":73367,"accel":{"x":-0.080,"y":0.044,"z":1.012},"gyro":{"x":-5.328,"y":-2.519,"z":21.817},"mpu_temp":44.49,"mpu_valid":true} (len=182)[0m
+[0;32mI (74346) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (74347) HTTP_SERVER: Data read: HR=109.7, SpO2=78.3, valid=1[0m
+[0;32mI (74350) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":78.3,"valid":true,"last_update":73881,"accel":{"x":-0.059,"y":0.070,"z":1.001},"gyro":{"x":2.214,"y":6.237,"z":-0.824},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (74858) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (74859) HTTP_SERVER: Data read: HR=109.7, SpO2=76.4, valid=1[0m
+[0;32mI (74862) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":76.4,"valid":true,"last_update":74387,"accel":{"x":-0.065,"y":0.066,"z":1.019},"gyro":{"x":1.794,"y":6.511,"z":-0.847},"mpu_temp":44.50,"mpu_valid":true} (len=180)[0m
+[0;32mI (75269) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (75269) HTTP_SERVER: Data read: HR=109.7, SpO2=74.3, valid=1[0m
+[0;32mI (75272) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":74.3,"valid":true,"last_update":74799,"accel":{"x":-0.073,"y":0.053,"z":1.025},"gyro":{"x":1.427,"y":6.969,"z":-0.840},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (75780) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (75780) HTTP_SERVER: Data read: HR=109.7, SpO2=73.4, valid=1[0m
+[0;32mI (75783) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":73.4,"valid":true,"last_update":75315,"accel":{"x":-0.074,"y":0.061,"z":1.017},"gyro":{"x":1.664,"y":6.733,"z":-0.832},"mpu_temp":44.49,"mpu_valid":true} (len=180)[0m
+[0;32mI (76292) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (76292) HTTP_SERVER: Data read: HR=109.7, SpO2=71.2, valid=1[0m
+[0;32mI (76295) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":71.2,"valid":true,"last_update":75821,"accel":{"x":-0.076,"y":0.057,"z":1.029},"gyro":{"x":1.565,"y":6.924,"z":-0.931},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (76804) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (76805) HTTP_SERVER: Data read: HR=109.7, SpO2=70.0, valid=1[0m
+[0;32mI (76808) HTTP_SERVER: Response sent: {"heart_rate":109.7,"spo2":70.0,"valid":true,"last_update":76337,"accel":{"x":-0.073,"y":0.065,"z":1.024},"gyro":{"x":1.718,"y":6.557,"z":-0.809},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (77316) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (77316) HTTP_SERVER: Data read: HR=106.1, SpO2=70.0, valid=1[0m
+[0;32mI (77319) HTTP_SERVER: Response sent: {"heart_rate":106.1,"spo2":70.0,"valid":true,"last_update":76846,"accel":{"x":-0.077,"y":0.045,"z":1.026},"gyro":{"x":1.229,"y":7.130,"z":-0.893},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (77829) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (77829) HTTP_SERVER: Data read: HR=141.2, SpO2=70.0, valid=1[0m
+[0;32mI (77832) HTTP_SERVER: Response sent: {"heart_rate":141.2,"spo2":70.0,"valid":true,"last_update":77363,"accel":{"x":-0.073,"y":0.057,"z":1.012},"gyro":{"x":1.534,"y":6.863,"z":-0.916},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (78340) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (78340) HTTP_SERVER: Data read: HR=143.0, SpO2=70.0, valid=1[0m
+[0;32mI (78343) HTTP_SERVER: Response sent: {"heart_rate":143.0,"spo2":70.0,"valid":true,"last_update":77870,"accel":{"x":-0.073,"y":0.056,"z":1.018},"gyro":{"x":1.588,"y":6.634,"z":-0.809},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (78853) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (78853) HTTP_SERVER: Data read: HR=144.0, SpO2=70.0, valid=1[0m
+[0;32mI (78857) HTTP_SERVER: Response sent: {"heart_rate":144.0,"spo2":70.0,"valid":true,"last_update":78385,"accel":{"x":-0.110,"y":0.088,"z":1.072},"gyro":{"x":1.435,"y":7.168,"z":-0.863},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (79261) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (79262) HTTP_SERVER: Data read: HR=135.7, SpO2=70.0, valid=1[0m
+[0;32mI (79265) HTTP_SERVER: Response sent: {"heart_rate":135.7,"spo2":70.0,"valid":true,"last_update":78796,"accel":{"x":-0.077,"y":0.061,"z":1.022},"gyro":{"x":1.664,"y":6.779,"z":-0.817},"mpu_temp":44.49,"mpu_valid":true} (len=180)[0m
+[0;32mI (79773) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (79774) HTTP_SERVER: Data read: HR=130.5, SpO2=70.0, valid=1[0m
+[0;32mI (79777) HTTP_SERVER: Response sent: {"heart_rate":130.5,"spo2":70.0,"valid":true,"last_update":79303,"accel":{"x":-0.071,"y":0.056,"z":1.024},"gyro":{"x":1.489,"y":6.695,"z":-0.931},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (79877) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (79878) HTTP_SERVER: Data read: HR=130.5, SpO2=70.0, valid=1[0m
+[0;32mI (79883) HTTP_SERVER: Response sent: {"heart_rate":130.5,"spo2":70.0,"valid":true,"last_update":79411,"accel":{"x":-0.071,"y":0.060,"z":1.023},"gyro":{"x":1.656,"y":6.908,"z":-0.977},"mpu_temp":44.50,"mpu_valid":true} (len=180)[0m
+[0;32mI (80285) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (80286) HTTP_SERVER: Data read: HR=126.0, SpO2=70.0, valid=1[0m
+[0;32mI (80289) HTTP_SERVER: Response sent: {"heart_rate":126.0,"spo2":70.0,"valid":true,"last_update":79823,"accel":{"x":-0.064,"y":0.073,"z":1.038},"gyro":{"x":1.794,"y":6.595,"z":-0.802},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (80799) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (80799) HTTP_SERVER: Data read: HR=123.9, SpO2=70.0, valid=1[0m
+[0;32mI (80802) HTTP_SERVER: Response sent: {"heart_rate":123.9,"spo2":70.0,"valid":true,"last_update":80328,"accel":{"x":-0.079,"y":0.056,"z":1.019},"gyro":{"x":1.534,"y":6.748,"z":-0.908},"mpu_temp":44.53,"mpu_valid":true} (len=180)[0m
+[0;32mI (81309) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (81310) HTTP_SERVER: Data read: HR=130.0, SpO2=70.0, valid=1[0m
+[0;32mI (81313) HTTP_SERVER: Response sent: {"heart_rate":130.0,"spo2":70.0,"valid":true,"last_update":80845,"accel":{"x":-0.066,"y":0.054,"z":1.024},"gyro":{"x":1.527,"y":6.931,"z":-0.786},"mpu_temp":44.53,"mpu_valid":true} (len=180)[0m
+[0;32mI (81821) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (81822) HTTP_SERVER: Data read: HR=126.5, SpO2=70.0, valid=1[0m
+[0;32mI (81825) HTTP_SERVER: Response sent: {"heart_rate":126.5,"spo2":70.0,"valid":true,"last_update":81351,"accel":{"x":-0.071,"y":0.057,"z":1.013},"gyro":{"x":1.733,"y":6.626,"z":-0.824},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (82334) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (82335) HTTP_SERVER: Data read: HR=123.7, SpO2=70.0, valid=1[0m
+[0;32mI (82338) HTTP_SERVER: Response sent: {"heart_rate":123.7,"spo2":70.0,"valid":true,"last_update":81867,"accel":{"x":-0.077,"y":0.061,"z":1.030},"gyro":{"x":1.542,"y":6.756,"z":-0.794},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (82845) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (82846) HTTP_SERVER: Data read: HR=121.7, SpO2=70.0, valid=1[0m
+[0;32mI (82849) HTTP_SERVER: Response sent: {"heart_rate":121.7,"spo2":70.0,"valid":true,"last_update":82376,"accel":{"x":-0.075,"y":0.055,"z":1.021},"gyro":{"x":1.534,"y":6.885,"z":-0.870},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (83357) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (83358) HTTP_SERVER: Data read: HR=120.4, SpO2=70.0, valid=1[0m
+[0;32mI (83361) HTTP_SERVER: Response sent: {"heart_rate":120.4,"spo2":70.0,"valid":true,"last_update":82893,"accel":{"x":-0.071,"y":0.055,"z":1.026},"gyro":{"x":1.603,"y":6.817,"z":-0.908},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (83767) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (83768) HTTP_SERVER: Data read: HR=119.4, SpO2=70.0, valid=1[0m
+[0;32mI (83771) HTTP_SERVER: Response sent: {"heart_rate":119.4,"spo2":70.0,"valid":true,"last_update":83298,"accel":{"x":-0.078,"y":0.061,"z":1.030},"gyro":{"x":1.527,"y":6.702,"z":-0.878},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (84279) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (84279) HTTP_SERVER: Data read: HR=118.9, SpO2=70.0, valid=1[0m
+[0;32mI (84282) HTTP_SERVER: Response sent: {"heart_rate":118.9,"spo2":70.0,"valid":true,"last_update":83808,"accel":{"x":-0.078,"y":0.055,"z":1.017},"gyro":{"x":1.214,"y":6.992,"z":-0.916},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (84792) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (84793) HTTP_SERVER: Data read: HR=118.0, SpO2=70.0, valid=1[0m
+[0;32mI (84796) HTTP_SERVER: Response sent: {"heart_rate":118.0,"spo2":70.0,"valid":true,"last_update":84327,"accel":{"x":-0.064,"y":0.053,"z":1.023},"gyro":{"x":1.695,"y":6.710,"z":-0.939},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (85303) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (85303) HTTP_SERVER: Data read: HR=142.0, SpO2=70.0, valid=1[0m
+[0;32mI (85306) HTTP_SERVER: Response sent: {"heart_rate":142.0,"spo2":70.0,"valid":true,"last_update":84832,"accel":{"x":-0.075,"y":0.056,"z":1.026},"gyro":{"x":1.511,"y":6.733,"z":-0.878},"mpu_temp":44.51,"mpu_valid":true} (len=180)[0m
+[0;32mI (85815) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (85815) HTTP_SERVER: Data read: HR=142.0, SpO2=70.0, valid=1[0m
+[0;32mI (85818) HTTP_SERVER: Response sent: {"heart_rate":142.0,"spo2":70.0,"valid":true,"last_update":85349,"accel":{"x":-0.070,"y":0.058,"z":1.021},"gyro":{"x":1.588,"y":6.695,"z":-0.863},"mpu_temp":44.53,"mpu_valid":true} (len=180)[0m
+[0;32mI (86327) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (86327) HTTP_SERVER: Data read: HR=142.0, SpO2=70.0, valid=1[0m
+[0;32mI (86330) HTTP_SERVER: Response sent: {"heart_rate":142.0,"spo2":70.0,"valid":true,"last_update":85856,"accel":{"x":-0.069,"y":0.063,"z":1.020},"gyro":{"x":1.855,"y":6.504,"z":-0.840},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (86839) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (86840) HTTP_SERVER: Data read: HR=117.0, SpO2=70.0, valid=1[0m
+[0;32mI (86843) HTTP_SERVER: Response sent: {"heart_rate":117.0,"spo2":70.0,"valid":true,"last_update":86375,"accel":{"x":-0.073,"y":0.058,"z":1.022},"gyro":{"x":1.542,"y":6.771,"z":-0.878},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (87352) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (87353) HTTP_SERVER: Data read: HR=117.0, SpO2=70.0, valid=1[0m
+[0;32mI (87356) HTTP_SERVER: Response sent: {"heart_rate":117.0,"spo2":70.0,"valid":true,"last_update":86881,"accel":{"x":-0.073,"y":0.055,"z":1.026},"gyro":{"x":1.466,"y":6.832,"z":-0.916},"mpu_temp":44.52,"mpu_valid":true} (len=180)[0m
+[0;32mI (87761) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (87761) HTTP_SERVER: Data read: HR=117.2, SpO2=70.0, valid=1[0m
+[0;32mI (87765) HTTP_SERVER: Response sent: {"heart_rate":117.2,"spo2":70.0,"valid":true,"last_update":87291,"accel":{"x":-0.074,"y":0.055,"z":1.025},"gyro":{"x":1.626,"y":6.710,"z":-0.832},"mpu_temp":44.53,"mpu_valid":true} (len=180)[0m
+[0;32mI (88273) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (88273) HTTP_SERVER: Data read: HR=117.3, SpO2=70.0, valid=1[0m
+[0;32mI (88276) HTTP_SERVER: Response sent: {"heart_rate":117.3,"spo2":70.0,"valid":true,"last_update":87802,"accel":{"x":-0.069,"y":0.053,"z":1.022},"gyro":{"x":1.534,"y":6.794,"z":-0.885},"mpu_temp":44.53,"mpu_valid":true} (len=180)[0m
+[0;32mI (88790) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (88791) HTTP_SERVER: Data read: HR=117.4, SpO2=70.0, valid=1[0m
+[0;32mI (88794) HTTP_SERVER: Response sent: {"heart_rate":117.4,"spo2":70.0,"valid":true,"last_update":88312,"accel":{"x":-0.065,"y":0.056,"z":1.022},"gyro":{"x":1.534,"y":6.786,"z":-0.947},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (89297) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (89297) HTTP_SERVER: Data read: HR=116.8, SpO2=70.0, valid=1[0m
+[0;32mI (89300) HTTP_SERVER: Response sent: {"heart_rate":116.8,"spo2":70.0,"valid":true,"last_update":88832,"accel":{"x":-0.083,"y":0.046,"z":1.030},"gyro":{"x":1.084,"y":7.183,"z":-0.908},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (89810) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (89810) HTTP_SERVER: Data read: HR=126.3, SpO2=70.0, valid=1[0m
+[0;32mI (89813) HTTP_SERVER: Response sent: {"heart_rate":126.3,"spo2":70.0,"valid":true,"last_update":89337,"accel":{"x":-0.071,"y":0.059,"z":1.021},"gyro":{"x":1.626,"y":6.672,"z":-0.863},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (89851) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (89852) HTTP_SERVER: Data read: HR=126.3, SpO2=70.0, valid=1[0m
+[0;32mI (89855) HTTP_SERVER: Response sent: {"heart_rate":126.3,"spo2":70.0,"valid":true,"last_update":89445,"accel":{"x":-0.075,"y":0.055,"z":1.022},"gyro":{"x":1.405,"y":6.847,"z":-0.817},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (90321) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (90321) HTTP_SERVER: Data read: HR=146.3, SpO2=70.0, valid=1[0m
+[0;32mI (90324) HTTP_SERVER: Response sent: {"heart_rate":146.3,"spo2":70.0,"valid":true,"last_update":89850,"accel":{"x":-0.072,"y":0.057,"z":1.021},"gyro":{"x":1.580,"y":6.779,"z":-0.832},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (90834) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (90834) HTTP_SERVER: Data read: HR=137.7, SpO2=70.0, valid=1[0m
+[0;32mI (90837) HTTP_SERVER: Response sent: {"heart_rate":137.7,"spo2":70.0,"valid":true,"last_update":90360,"accel":{"x":-0.074,"y":0.057,"z":1.034},"gyro":{"x":1.603,"y":6.763,"z":-0.908},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (91345) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (91345) HTTP_SERVER: Data read: HR=131.5, SpO2=70.0, valid=1[0m
+[0;32mI (91348) HTTP_SERVER: Response sent: {"heart_rate":131.5,"spo2":70.0,"valid":true,"last_update":90879,"accel":{"x":-0.076,"y":0.060,"z":1.023},"gyro":{"x":1.565,"y":6.794,"z":-0.748},"mpu_temp":44.53,"mpu_valid":true} (len=180)[0m
+[0;32mI (91856) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (91857) HTTP_SERVER: Data read: HR=127.3, SpO2=70.0, valid=1[0m
+[0;32mI (91860) HTTP_SERVER: Response sent: {"heart_rate":127.3,"spo2":70.0,"valid":true,"last_update":91384,"accel":{"x":-0.053,"y":0.040,"z":1.028},"gyro":{"x":1.496,"y":6.847,"z":-0.817},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (92269) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (92269) HTTP_SERVER: Data read: HR=124.2, SpO2=70.0, valid=1[0m
+[0;32mI (92275) HTTP_SERVER: Response sent: {"heart_rate":124.2,"spo2":70.0,"valid":true,"last_update":91795,"accel":{"x":-0.074,"y":0.053,"z":1.020},"gyro":{"x":1.634,"y":6.679,"z":-0.802},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (92778) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (92779) HTTP_SERVER: Data read: HR=124.2, SpO2=70.0, valid=1[0m
+[0;32mI (92782) HTTP_SERVER: Response sent: {"heart_rate":124.2,"spo2":70.0,"valid":true,"last_update":92312,"accel":{"x":-0.069,"y":0.057,"z":1.024},"gyro":{"x":1.519,"y":6.763,"z":-0.832},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (93291) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (93292) HTTP_SERVER: Data read: HR=104.6, SpO2=70.0, valid=1[0m
+[0;32mI (93295) HTTP_SERVER: Response sent: {"heart_rate":104.6,"spo2":70.0,"valid":true,"last_update":92818,"accel":{"x":-0.080,"y":0.050,"z":1.022},"gyro":{"x":1.313,"y":6.939,"z":-0.824},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (93802) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (93803) HTTP_SERVER: Data read: HR=108.3, SpO2=70.0, valid=1[0m
+[0;32mI (93806) HTTP_SERVER: Response sent: {"heart_rate":108.3,"spo2":70.0,"valid":true,"last_update":93331,"accel":{"x":-0.070,"y":0.038,"z":1.030},"gyro":{"x":0.977,"y":7.321,"z":-0.893},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (94314) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (94315) HTTP_SERVER: Data read: HR=108.3, SpO2=70.0, valid=1[0m
+[0;32mI (94318) HTTP_SERVER: Response sent: {"heart_rate":108.3,"spo2":70.0,"valid":true,"last_update":93842,"accel":{"x":-0.066,"y":0.062,"z":1.017},"gyro":{"x":1.855,"y":6.496,"z":-0.779},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (94826) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (94827) HTTP_SERVER: Data read: HR=95.3, SpO2=70.0, valid=1[0m
+[0;32mI (94830) HTTP_SERVER: Response sent: {"heart_rate":95.3,"spo2":70.0,"valid":true,"last_update":94357,"accel":{"x":-0.082,"y":0.051,"z":1.031},"gyro":{"x":1.519,"y":6.695,"z":-0.878},"mpu_temp":44.56,"mpu_valid":true} (len=179)[0m
+[0;32mI (95338) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (95339) HTTP_SERVER: Data read: HR=101.9, SpO2=70.0, valid=1[0m
+[0;32mI (95342) HTTP_SERVER: Response sent: {"heart_rate":101.9,"spo2":70.0,"valid":true,"last_update":94866,"accel":{"x":-0.072,"y":0.059,"z":1.014},"gyro":{"x":1.771,"y":6.511,"z":-0.771},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (95851) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (95852) HTTP_SERVER: Data read: HR=106.5, SpO2=70.0, valid=1[0m
+[0;32mI (95855) HTTP_SERVER: Response sent: {"heart_rate":106.5,"spo2":70.0,"valid":true,"last_update":95379,"accel":{"x":-0.070,"y":0.052,"z":1.021},"gyro":{"x":1.634,"y":6.771,"z":-0.863},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (96362) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (96363) HTTP_SERVER: Data read: HR=109.6, SpO2=70.0, valid=1[0m
+[0;32mI (96366) HTTP_SERVER: Response sent: {"heart_rate":109.6,"spo2":70.0,"valid":true,"last_update":95891,"accel":{"x":-0.084,"y":0.052,"z":1.031},"gyro":{"x":1.305,"y":7.069,"z":-0.885},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (96772) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (96772) HTTP_SERVER: Data read: HR=112.0, SpO2=70.0, valid=1[0m
+[0;32mI (96775) HTTP_SERVER: Response sent: {"heart_rate":112.0,"spo2":70.0,"valid":true,"last_update":96301,"accel":{"x":-0.081,"y":0.047,"z":1.026},"gyro":{"x":1.328,"y":6.855,"z":-0.969},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (97284) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (97284) HTTP_SERVER: Data read: HR=113.5, SpO2=70.0, valid=1[0m
+[0;32mI (97288) HTTP_SERVER: Response sent: {"heart_rate":113.5,"spo2":70.0,"valid":true,"last_update":96813,"accel":{"x":-0.077,"y":0.054,"z":1.021},"gyro":{"x":1.481,"y":6.832,"z":-0.954},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (97796) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (97796) HTTP_SERVER: Data read: HR=114.7, SpO2=70.0, valid=1[0m
+[0;32mI (97799) HTTP_SERVER: Response sent: {"heart_rate":114.7,"spo2":70.0,"valid":true,"last_update":97324,"accel":{"x":-0.075,"y":0.056,"z":1.019},"gyro":{"x":1.351,"y":6.916,"z":-0.763},"mpu_temp":44.54,"mpu_valid":true} (len=180)[0m
+[0;32mI (98309) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (98309) HTTP_SERVER: Data read: HR=115.5, SpO2=70.0, valid=1[0m
+[0;32mI (98312) HTTP_SERVER: Response sent: {"heart_rate":115.5,"spo2":70.0,"valid":true,"last_update":97835,"accel":{"x":-0.067,"y":0.084,"z":0.995},"gyro":{"x":2.092,"y":6.267,"z":-0.824},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (98820) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (98820) HTTP_SERVER: Data read: HR=124.4, SpO2=70.0, valid=1[0m
+[0;32mI (98823) HTTP_SERVER: Response sent: {"heart_rate":124.4,"spo2":70.0,"valid":true,"last_update":98349,"accel":{"x":-0.071,"y":0.057,"z":1.023},"gyro":{"x":1.672,"y":6.611,"z":-0.763},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (99334) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (99334) HTTP_SERVER: Data read: HR=122.4, SpO2=70.0, valid=1[0m
+[0;32mI (99337) HTTP_SERVER: Response sent: {"heart_rate":122.4,"spo2":70.0,"valid":true,"last_update":98861,"accel":{"x":-0.074,"y":0.060,"z":1.010},"gyro":{"x":1.595,"y":6.809,"z":-0.855},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (99844) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (99844) HTTP_SERVER: Data read: HR=120.7, SpO2=70.0, valid=1[0m
+[0;32mI (99847) HTTP_SERVER: Response sent: {"heart_rate":120.7,"spo2":70.0,"valid":true,"last_update":99373,"accel":{"x":-0.075,"y":0.053,"z":1.009},"gyro":{"x":1.496,"y":6.763,"z":-0.863},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (100254) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (100254) HTTP_SERVER: Data read: HR=119.8, SpO2=70.0, valid=1[0m
+[0;32mI (100258) HTTP_SERVER: Response sent: {"heart_rate":119.8,"spo2":70.0,"valid":true,"last_update":99782,"accel":{"x":-0.077,"y":0.057,"z":1.025},"gyro":{"x":1.344,"y":6.893,"z":-0.878},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (100275) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (100278) HTTP_SERVER: Data read: HR=119.8, SpO2=70.0, valid=1[0m
+[0;32mI (100285) HTTP_SERVER: Response sent: {"heart_rate":119.8,"spo2":70.0,"valid":true,"last_update":99782,"accel":{"x":-0.077,"y":0.057,"z":1.025},"gyro":{"x":1.344,"y":6.893,"z":-0.878},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (100869) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (100869) HTTP_SERVER: Data read: HR=116.9, SpO2=70.0, valid=1[0m
+[0;32mI (100873) HTTP_SERVER: Response sent: {"heart_rate":116.9,"spo2":70.0,"valid":true,"last_update":100427,"accel":{"x":-0.077,"y":0.055,"z":1.018},"gyro":{"x":1.359,"y":6.908,"z":-0.855},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (101278) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (101279) HTTP_SERVER: Data read: HR=116.9, SpO2=70.0, valid=1[0m
+[0;32mI (101282) HTTP_SERVER: Response sent: {"heart_rate":116.9,"spo2":70.0,"valid":true,"last_update":100831,"accel":{"x":-0.074,"y":0.060,"z":1.020},"gyro":{"x":1.679,"y":6.634,"z":-0.832},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (101789) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (101790) HTTP_SERVER: Data read: HR=99.7, SpO2=70.0, valid=1[0m
+[0;32mI (101793) HTTP_SERVER: Response sent: {"heart_rate":99.7,"spo2":70.0,"valid":true,"last_update":101336,"accel":{"x":-0.075,"y":0.055,"z":1.016},"gyro":{"x":1.588,"y":6.786,"z":-0.756},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (102302) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (102303) HTTP_SERVER: Data read: HR=99.7, SpO2=70.0, valid=1[0m
+[0;32mI (102306) HTTP_SERVER: Response sent: {"heart_rate":99.7,"spo2":70.0,"valid":true,"last_update":101841,"accel":{"x":-0.065,"y":0.061,"z":1.004},"gyro":{"x":2.000,"y":6.405,"z":-0.855},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (102813) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (102814) HTTP_SERVER: Data read: HR=99.7, SpO2=70.0, valid=1[0m
+[0;32mI (102817) HTTP_SERVER: Response sent: {"heart_rate":99.7,"spo2":70.0,"valid":true,"last_update":102347,"accel":{"x":-0.043,"y":0.075,"z":1.014},"gyro":{"x":2.786,"y":5.664,"z":-0.634},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (103327) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (103327) HTTP_SERVER: Data read: HR=99.7, SpO2=70.0, valid=1[0m
+[0;32mI (103330) HTTP_SERVER: Response sent: {"heart_rate":99.7,"spo2":70.0,"valid":true,"last_update":102853,"accel":{"x":-0.080,"y":0.053,"z":1.026},"gyro":{"x":1.473,"y":6.885,"z":-0.885},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (103837) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (103838) HTTP_SERVER: Data read: HR=80.2, SpO2=70.0, valid=1[0m
+[0;32mI (103841) HTTP_SERVER: Response sent: {"heart_rate":80.2,"spo2":70.0,"valid":true,"last_update":103369,"accel":{"x":-0.072,"y":0.057,"z":1.021},"gyro":{"x":1.679,"y":6.763,"z":-0.855},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (104349) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (104350) HTTP_SERVER: Data read: HR=91.4, SpO2=70.0, valid=1[0m
+[0;32mI (104353) HTTP_SERVER: Response sent: {"heart_rate":91.4,"spo2":70.0,"valid":true,"last_update":103877,"accel":{"x":-0.073,"y":0.057,"z":1.014},"gyro":{"x":1.580,"y":6.725,"z":-0.901},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (104861) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (104862) HTTP_SERVER: Data read: HR=99.1, SpO2=70.0, valid=1[0m
+[0;32mI (104865) HTTP_SERVER: Response sent: {"heart_rate":99.1,"spo2":70.0,"valid":true,"last_update":104391,"accel":{"x":-0.074,"y":0.046,"z":1.030},"gyro":{"x":0.954,"y":7.176,"z":-0.924},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (105276) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (105276) HTTP_SERVER: Data read: HR=104.5, SpO2=70.0, valid=1[0m
+[0;32mI (105280) HTTP_SERVER: Response sent: {"heart_rate":104.5,"spo2":70.0,"valid":true,"last_update":104800,"accel":{"x":-0.038,"y":0.062,"z":1.038},"gyro":{"x":2.145,"y":6.260,"z":-0.740},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (105792) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (105793) HTTP_SERVER: Data read: HR=108.1, SpO2=70.0, valid=1[0m
+[0;32mI (105796) HTTP_SERVER: Response sent: {"heart_rate":108.1,"spo2":70.0,"valid":true,"last_update":105315,"accel":{"x":-0.074,"y":0.053,"z":1.024},"gyro":{"x":1.573,"y":6.794,"z":-0.939},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (106297) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (106298) HTTP_SERVER: Data read: HR=108.1, SpO2=70.0, valid=1[0m
+[0;32mI (106301) HTTP_SERVER: Response sent: {"heart_rate":108.1,"spo2":70.0,"valid":true,"last_update":105833,"accel":{"x":-0.072,"y":0.059,"z":1.024},"gyro":{"x":1.550,"y":6.779,"z":-0.824},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (106807) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (106808) HTTP_SERVER: Data read: HR=129.9, SpO2=70.0, valid=1[0m
+[0;32mI (106811) HTTP_SERVER: Response sent: {"heart_rate":129.9,"spo2":70.0,"valid":true,"last_update":106338,"accel":{"x":-0.071,"y":0.059,"z":1.023},"gyro":{"x":1.603,"y":6.817,"z":-0.763},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (107319) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (107320) HTTP_SERVER: Data read: HR=129.9, SpO2=70.0, valid=1[0m
+[0;32mI (107323) HTTP_SERVER: Response sent: {"heart_rate":129.9,"spo2":70.0,"valid":true,"last_update":106847,"accel":{"x":-0.084,"y":0.059,"z":1.020},"gyro":{"x":1.466,"y":6.763,"z":-0.840},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (107862) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (107862) HTTP_SERVER: Data read: HR=126.1, SpO2=70.0, valid=1[0m
+[0;32mI (107865) HTTP_SERVER: Response sent: {"heart_rate":126.1,"spo2":70.0,"valid":true,"last_update":107460,"accel":{"x":-0.083,"y":0.066,"z":1.024},"gyro":{"x":1.802,"y":6.725,"z":-0.931},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (108344) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (108345) HTTP_SERVER: Data read: HR=126.1, SpO2=70.0, valid=1[0m
+[0;32mI (108348) HTTP_SERVER: Response sent: {"heart_rate":126.1,"spo2":70.0,"valid":true,"last_update":107868,"accel":{"x":-0.074,"y":0.054,"z":1.022},"gyro":{"x":1.557,"y":6.779,"z":-0.908},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (108862) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (108862) HTTP_SERVER: Data read: HR=126.1, SpO2=70.0, valid=1[0m
+[0;32mI (108865) HTTP_SERVER: Response sent: {"heart_rate":126.1,"spo2":70.0,"valid":true,"last_update":108384,"accel":{"x":-0.087,"y":0.036,"z":1.033},"gyro":{"x":0.878,"y":7.336,"z":-0.954},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (109370) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (109371) HTTP_SERVER: Data read: HR=99.9, SpO2=70.0, valid=1[0m
+[0;32mI (109374) HTTP_SERVER: Response sent: {"heart_rate":99.9,"spo2":70.0,"valid":true,"last_update":108903,"accel":{"x":-0.077,"y":0.060,"z":1.021},"gyro":{"x":1.534,"y":6.779,"z":-0.870},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (109785) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (109785) HTTP_SERVER: Data read: HR=99.9, SpO2=70.0, valid=1[0m
+[0;32mI (109788) HTTP_SERVER: Response sent: {"heart_rate":99.9,"spo2":70.0,"valid":true,"last_update":109309,"accel":{"x":-0.073,"y":0.048,"z":1.023},"gyro":{"x":1.252,"y":7.023,"z":-0.962},"mpu_temp":44.55,"mpu_valid":true} (len=180)[0m
+[0;32mI (109852) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (109853) HTTP_SERVER: Data read: HR=99.9, SpO2=70.0, valid=1[0m
+[0;32mI (109856) HTTP_SERVER: Response sent: {"heart_rate":99.9,"spo2":70.0,"valid":true,"last_update":109421,"accel":{"x":-0.082,"y":0.060,"z":1.022},"gyro":{"x":1.534,"y":6.878,"z":-0.740},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (110290) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (110291) HTTP_SERVER: Data read: HR=87.5, SpO2=70.0, valid=1[0m
+[0;32mI (110294) HTTP_SERVER: Response sent: {"heart_rate":87.5,"spo2":70.0,"valid":true,"last_update":109825,"accel":{"x":-0.070,"y":0.046,"z":1.021},"gyro":{"x":1.412,"y":6.924,"z":-0.855},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (110801) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (110801) HTTP_SERVER: Data read: HR=96.5, SpO2=70.0, valid=1[0m
+[0;32mI (110804) HTTP_SERVER: Response sent: {"heart_rate":96.5,"spo2":70.0,"valid":true,"last_update":110336,"accel":{"x":-0.071,"y":0.067,"z":1.027},"gyro":{"x":1.786,"y":6.504,"z":-0.763},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (111313) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (111313) HTTP_SERVER: Data read: HR=103.2, SpO2=70.0, valid=1[0m
+[0;32mI (111316) HTTP_SERVER: Response sent: {"heart_rate":103.2,"spo2":70.0,"valid":true,"last_update":110841,"accel":{"x":-0.079,"y":0.056,"z":1.022},"gyro":{"x":1.458,"y":6.878,"z":-0.901},"mpu_temp":44.61,"mpu_valid":true} (len=181)[0m
+[0;32mI (111825) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (111825) HTTP_SERVER: Data read: HR=103.2, SpO2=70.0, valid=1[0m
+[0;32mI (111828) HTTP_SERVER: Response sent: {"heart_rate":103.2,"spo2":70.0,"valid":true,"last_update":111358,"accel":{"x":-0.077,"y":0.055,"z":1.022},"gyro":{"x":1.443,"y":6.817,"z":-0.885},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (112337) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (112337) HTTP_SERVER: Data read: HR=91.7, SpO2=70.0, valid=1[0m
+[0;32mI (112340) HTTP_SERVER: Response sent: {"heart_rate":91.7,"spo2":70.0,"valid":true,"last_update":111865,"accel":{"x":-0.076,"y":0.058,"z":1.023},"gyro":{"x":1.641,"y":6.733,"z":-0.847},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (112850) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (112850) HTTP_SERVER: Data read: HR=91.7, SpO2=70.0, valid=1[0m
+[0;32mI (112853) HTTP_SERVER: Response sent: {"heart_rate":91.7,"spo2":70.0,"valid":true,"last_update":112380,"accel":{"x":-0.076,"y":0.055,"z":1.015},"gyro":{"x":1.359,"y":6.992,"z":-0.824},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (113361) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (113361) HTTP_SERVER: Data read: HR=81.8, SpO2=70.0, valid=1[0m
+[0;32mI (113364) HTTP_SERVER: Response sent: {"heart_rate":81.8,"spo2":70.0,"valid":true,"last_update":112889,"accel":{"x":-0.072,"y":0.057,"z":1.024},"gyro":{"x":1.527,"y":6.702,"z":-0.870},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (113770) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (113771) HTTP_SERVER: Data read: HR=81.8, SpO2=70.0, valid=1[0m
+[0;32mI (113774) HTTP_SERVER: Response sent: {"heart_rate":81.8,"spo2":70.0,"valid":true,"last_update":113299,"accel":{"x":-0.065,"y":0.053,"z":1.018},"gyro":{"x":1.611,"y":6.687,"z":-1.046},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (114285) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (114286) HTTP_SERVER: Data read: HR=81.8, SpO2=70.0, valid=1[0m
+[0;32mI (114288) HTTP_SERVER: Response sent: {"heart_rate":81.8,"spo2":70.0,"valid":true,"last_update":113815,"accel":{"x":-0.075,"y":0.052,"z":1.015},"gyro":{"x":1.565,"y":6.748,"z":-0.962},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (114794) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (114795) HTTP_SERVER: Data read: HR=81.8, SpO2=70.0, valid=1[0m
+[0;32mI (114798) HTTP_SERVER: Response sent: {"heart_rate":81.8,"spo2":70.0,"valid":true,"last_update":114325,"accel":{"x":-0.074,"y":0.056,"z":1.022},"gyro":{"x":1.603,"y":6.740,"z":-0.809},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (115308) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (115308) HTTP_SERVER: Data read: HR=81.8, SpO2=70.0, valid=1[0m
+[0;32mI (115311) HTTP_SERVER: Response sent: {"heart_rate":81.8,"spo2":70.0,"valid":true,"last_update":114834,"accel":{"x":-0.077,"y":0.060,"z":1.023},"gyro":{"x":1.565,"y":6.863,"z":-0.847},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (115821) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (115821) HTTP_SERVER: Data read: HR=100.9, SpO2=70.0, valid=1[0m
+[0;32mI (115824) HTTP_SERVER: Response sent: {"heart_rate":100.9,"spo2":70.0,"valid":true,"last_update":115347,"accel":{"x":-0.008,"y":0.197,"z":0.993},"gyro":{"x":10.267,"y":-0.725,"z":0.496},"mpu_temp":44.56,"mpu_valid":true} (len=182)[0m
+[0;32mI (116334) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (116334) HTTP_SERVER: Data read: HR=105.7, SpO2=70.0, valid=1[0m
+[0;32mI (116337) HTTP_SERVER: Response sent: {"heart_rate":105.7,"spo2":70.0,"valid":true,"last_update":115864,"accel":{"x":-0.071,"y":0.061,"z":1.019},"gyro":{"x":1.863,"y":6.595,"z":-0.832},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (116847) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (116848) HTTP_SERVER: Data read: HR=105.7, SpO2=70.0, valid=1[0m
+[0;32mI (116851) HTTP_SERVER: Response sent: {"heart_rate":105.7,"spo2":70.0,"valid":true,"last_update":116374,"accel":{"x":-0.071,"y":0.061,"z":1.017},"gyro":{"x":1.718,"y":6.702,"z":-0.908},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (117354) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (117355) HTTP_SERVER: Data read: HR=91.5, SpO2=70.0, valid=1[0m
+[0;32mI (117358) HTTP_SERVER: Response sent: {"heart_rate":91.5,"spo2":70.0,"valid":true,"last_update":116890,"accel":{"x":-0.076,"y":0.051,"z":1.025},"gyro":{"x":1.511,"y":6.908,"z":-0.832},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (117867) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (117868) HTTP_SERVER: Data read: HR=99.5, SpO2=70.0, valid=1[0m
+[0;32mI (117871) HTTP_SERVER: Response sent: {"heart_rate":99.5,"spo2":70.0,"valid":true,"last_update":117395,"accel":{"x":-0.075,"y":0.050,"z":1.021},"gyro":{"x":1.412,"y":6.878,"z":-0.878},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (118276) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (118276) HTTP_SERVER: Data read: HR=104.8, SpO2=70.0, valid=1[0m
+[0;32mI (118282) HTTP_SERVER: Response sent: {"heart_rate":104.8,"spo2":70.0,"valid":true,"last_update":117806,"accel":{"x":-0.074,"y":0.055,"z":1.026},"gyro":{"x":1.740,"y":6.687,"z":-0.763},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (118788) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (118788) HTTP_SERVER: Data read: HR=108.7, SpO2=70.0, valid=1[0m
+[0;32mI (118791) HTTP_SERVER: Response sent: {"heart_rate":108.7,"spo2":70.0,"valid":true,"last_update":118316,"accel":{"x":-0.072,"y":0.059,"z":1.027},"gyro":{"x":1.679,"y":6.748,"z":-0.916},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (119300) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (119300) HTTP_SERVER: Data read: HR=108.7, SpO2=70.0, valid=1[0m
+[0;32mI (119303) HTTP_SERVER: Response sent: {"heart_rate":108.7,"spo2":70.0,"valid":true,"last_update":118828,"accel":{"x":-0.078,"y":0.055,"z":1.017},"gyro":{"x":1.382,"y":7.053,"z":-0.908},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (119812) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (119812) HTTP_SERVER: Data read: HR=93.6, SpO2=70.0, valid=1[0m
+[0;32mI (119815) HTTP_SERVER: Response sent: {"heart_rate":93.6,"spo2":70.0,"valid":true,"last_update":119342,"accel":{"x":-0.073,"y":0.055,"z":1.021},"gyro":{"x":1.580,"y":6.809,"z":-0.885},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (119855) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (119855) HTTP_SERVER: Data read: HR=93.6, SpO2=70.0, valid=1[0m
+[0;32mI (119858) HTTP_SERVER: Response sent: {"heart_rate":93.6,"spo2":70.0,"valid":true,"last_update":119448,"accel":{"x":-0.078,"y":0.055,"z":1.031},"gyro":{"x":1.573,"y":6.794,"z":-0.870},"mpu_temp":44.60,"mpu_valid":true} (len=180)[0m
+[0;32mI (120325) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (120325) HTTP_SERVER: Data read: HR=109.5, SpO2=70.0, valid=1[0m
+[0;32mI (120328) HTTP_SERVER: Response sent: {"heart_rate":109.5,"spo2":70.0,"valid":true,"last_update":119852,"accel":{"x":-0.071,"y":0.057,"z":1.030},"gyro":{"x":1.519,"y":6.824,"z":-0.931},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (120843) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (120843) HTTP_SERVER: Data read: HR=109.5, SpO2=70.0, valid=1[0m
+[0;32mI (120846) HTTP_SERVER: Response sent: {"heart_rate":109.5,"spo2":70.0,"valid":true,"last_update":120368,"accel":{"x":-0.076,"y":0.050,"z":1.023},"gyro":{"x":1.542,"y":6.939,"z":-0.870},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (121348) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (121348) HTTP_SERVER: Data read: HR=109.5, SpO2=70.0, valid=1[0m
+[0;32mI (121351) HTTP_SERVER: Response sent: {"heart_rate":109.5,"spo2":70.0,"valid":true,"last_update":120882,"accel":{"x":-0.078,"y":0.060,"z":1.019},"gyro":{"x":1.412,"y":6.916,"z":-0.802},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (121860) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (121860) HTTP_SERVER: Data read: HR=109.5, SpO2=70.0, valid=1[0m
+[0;32mI (121863) HTTP_SERVER: Response sent: {"heart_rate":109.5,"spo2":70.0,"valid":true,"last_update":121390,"accel":{"x":-0.070,"y":0.059,"z":1.027},"gyro":{"x":1.420,"y":6.847,"z":-0.916},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (122373) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (122373) HTTP_SERVER: Data read: HR=109.5, SpO2=70.0, valid=1[0m
+[0;32mI (122376) HTTP_SERVER: Response sent: {"heart_rate":109.5,"spo2":70.0,"valid":true,"last_update":121900,"accel":{"x":-0.073,"y":0.058,"z":1.024},"gyro":{"x":1.649,"y":6.687,"z":-0.817},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (122787) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (122787) HTTP_SERVER: Data read: HR=134.6, SpO2=70.0, valid=1[0m
+[0;32mI (122790) HTTP_SERVER: Response sent: {"heart_rate":134.6,"spo2":70.0,"valid":true,"last_update":122312,"accel":{"x":-0.074,"y":0.056,"z":1.018},"gyro":{"x":1.496,"y":6.809,"z":-0.931},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (123293) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (123294) HTTP_SERVER: Data read: HR=129.1, SpO2=70.0, valid=1[0m
+[0;32mI (123297) HTTP_SERVER: Response sent: {"heart_rate":129.1,"spo2":70.0,"valid":true,"last_update":122828,"accel":{"x":-0.075,"y":0.052,"z":1.021},"gyro":{"x":1.481,"y":6.786,"z":-0.855},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (123805) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (123806) HTTP_SERVER: Data read: HR=126.0, SpO2=70.0, valid=1[0m
+[0;32mI (123809) HTTP_SERVER: Response sent: {"heart_rate":126.0,"spo2":70.0,"valid":true,"last_update":123333,"accel":{"x":-0.078,"y":0.054,"z":1.025},"gyro":{"x":1.450,"y":6.901,"z":-0.885},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (124329) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (124330) HTTP_SERVER: Data read: HR=126.0, SpO2=70.0, valid=1[0m
+[0;32mI (124332) HTTP_SERVER: Response sent: {"heart_rate":126.0,"spo2":70.0,"valid":true,"last_update":123846,"accel":{"x":-0.073,"y":0.053,"z":1.018},"gyro":{"x":1.580,"y":6.710,"z":-0.855},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (124835) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (124835) HTTP_SERVER: Data read: HR=126.0, SpO2=70.0, valid=1[0m
+[0;32mI (124838) HTTP_SERVER: Response sent: {"heart_rate":126.0,"spo2":70.0,"valid":true,"last_update":124369,"accel":{"x":-0.072,"y":0.059,"z":1.032},"gyro":{"x":1.618,"y":6.733,"z":-0.786},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (125349) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (125350) HTTP_SERVER: Data read: HR=126.0, SpO2=70.0, valid=1[0m
+[0;32mI (125353) HTTP_SERVER: Response sent: {"heart_rate":126.0,"spo2":70.0,"valid":true,"last_update":124876,"accel":{"x":-0.076,"y":0.055,"z":1.018},"gyro":{"x":1.641,"y":6.725,"z":-0.855},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (125853) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (125854) HTTP_SERVER: Data read: HR=97.4, SpO2=70.0, valid=1[0m
+[0;32mI (125857) HTTP_SERVER: Response sent: {"heart_rate":97.4,"spo2":70.0,"valid":true,"last_update":125389,"accel":{"x":-0.068,"y":0.067,"z":1.015},"gyro":{"x":2.015,"y":6.366,"z":-0.863},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (126366) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (126366) HTTP_SERVER: Data read: HR=103.8, SpO2=70.0, valid=1[0m
+[0;32mI (126369) HTTP_SERVER: Response sent: {"heart_rate":103.8,"spo2":70.0,"valid":true,"last_update":125894,"accel":{"x":-0.074,"y":0.055,"z":1.019},"gyro":{"x":1.458,"y":6.817,"z":-0.924},"mpu_temp":44.59,"mpu_valid":true} (len=181)[0m
+[0;32mI (126775) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (126776) HTTP_SERVER: Data read: HR=107.8, SpO2=70.0, valid=1[0m
+[0;32mI (126780) HTTP_SERVER: Response sent: {"heart_rate":107.8,"spo2":70.0,"valid":true,"last_update":126305,"accel":{"x":-0.076,"y":0.063,"z":1.022},"gyro":{"x":1.641,"y":6.748,"z":-0.878},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (126990) MAIN: HTTP Server running - HR: 107.8 BPM, SpO2: 70.0%, Valid: Yes[0m
+[0;32mI (127288) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (127289) HTTP_SERVER: Data read: HR=107.8, SpO2=70.0, valid=1[0m
+[0;32mI (127292) HTTP_SERVER: Response sent: {"heart_rate":107.8,"spo2":70.0,"valid":true,"last_update":126815,"accel":{"x":-0.077,"y":0.054,"z":1.020},"gyro":{"x":1.580,"y":6.832,"z":-0.855},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (127799) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (127799) HTTP_SERVER: Data read: HR=107.8, SpO2=70.0, valid=1[0m
+[0;32mI (127803) HTTP_SERVER: Response sent: {"heart_rate":107.8,"spo2":70.0,"valid":true,"last_update":127328,"accel":{"x":-0.068,"y":0.053,"z":1.018},"gyro":{"x":1.466,"y":6.756,"z":-0.855},"mpu_temp":44.58,"mpu_valid":true} (len=181)[0m
+[0;32mI (128311) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (128311) HTTP_SERVER: Data read: HR=107.8, SpO2=70.0, valid=1[0m
+[0;32mI (128315) HTTP_SERVER: Response sent: {"heart_rate":107.8,"spo2":70.0,"valid":true,"last_update":127839,"accel":{"x":-0.070,"y":0.060,"z":1.021},"gyro":{"x":1.656,"y":6.786,"z":-0.824},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (128823) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (128824) HTTP_SERVER: Data read: HR=84.7, SpO2=70.0, valid=1[0m
+[0;32mI (128827) HTTP_SERVER: Response sent: {"heart_rate":84.7,"spo2":70.0,"valid":true,"last_update":128354,"accel":{"x":-0.071,"y":0.058,"z":1.026},"gyro":{"x":1.550,"y":6.794,"z":-0.863},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (129342) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (129342) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (129345) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":128863,"accel":{"x":-0.073,"y":0.052,"z":1.018},"gyro":{"x":1.397,"y":6.763,"z":-0.855},"mpu_temp":44.61,"mpu_valid":true} (len=180)[0m
+[0;32mI (129752) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (129753) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (129756) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":129283,"accel":{"x":-0.071,"y":0.067,"z":1.017},"gyro":{"x":1.656,"y":6.534,"z":-0.901},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (129974) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (129975) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (129978) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":129489,"accel":{"x":-0.071,"y":0.055,"z":1.023},"gyro":{"x":1.435,"y":6.863,"z":-0.847},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (130359) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (130359) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (130363) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":129913,"accel":{"x":-0.073,"y":0.057,"z":1.021},"gyro":{"x":1.511,"y":6.748,"z":-0.855},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (130871) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (130872) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (130875) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":130419,"accel":{"x":-0.073,"y":0.053,"z":1.030},"gyro":{"x":1.282,"y":6.969,"z":-0.878},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (131281) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (131281) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (131284) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":130823,"accel":{"x":-0.076,"y":0.056,"z":1.023},"gyro":{"x":1.580,"y":6.733,"z":-0.863},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (131794) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (131794) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (131797) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":131328,"accel":{"x":-0.071,"y":0.054,"z":1.023},"gyro":{"x":1.443,"y":6.855,"z":-0.870},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (132305) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (132305) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (132308) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":131836,"accel":{"x":-0.074,"y":0.055,"z":1.020},"gyro":{"x":1.595,"y":6.718,"z":-0.962},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (132817) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (132817) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (132820) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":132344,"accel":{"x":-0.082,"y":0.058,"z":1.020},"gyro":{"x":1.443,"y":6.908,"z":-0.824},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (133330) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (133330) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (133333) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":132861,"accel":{"x":-0.073,"y":0.053,"z":1.026},"gyro":{"x":1.443,"y":6.832,"z":-0.855},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (133841) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (133841) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (133844) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":133369,"accel":{"x":-0.077,"y":0.055,"z":1.025},"gyro":{"x":1.519,"y":6.733,"z":-0.878},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (134354) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (134354) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (134357) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":133883,"accel":{"x":-0.118,"y":-0.033,"z":1.130},"gyro":{"x":-4.046,"y":11.550,"z":-1.977},"mpu_temp":44.57,"mpu_valid":true} (len=183)[0m
+[0;32mI (134865) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (134865) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (134868) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":134394,"accel":{"x":-0.074,"y":0.056,"z":1.031},"gyro":{"x":1.542,"y":6.771,"z":-0.756},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (135275) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (135275) HTTP_SERVER: Data read: HR=94.7, SpO2=70.0, valid=1[0m
+[0;32mI (135278) HTTP_SERVER: Response sent: {"heart_rate":94.7,"spo2":70.0,"valid":true,"last_update":134803,"accel":{"x":-0.077,"y":0.055,"z":1.020},"gyro":{"x":1.389,"y":6.855,"z":-0.901},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (135786) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (135787) HTTP_SERVER: Data read: HR=101.5, SpO2=70.0, valid=1[0m
+[0;32mI (135790) HTTP_SERVER: Response sent: {"heart_rate":101.5,"spo2":70.0,"valid":true,"last_update":135314,"accel":{"x":-0.073,"y":0.058,"z":1.020},"gyro":{"x":1.565,"y":6.756,"z":-0.885},"mpu_temp":44.57,"mpu_valid":true} (len=181)[0m
+[0;32mI (136298) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (136299) HTTP_SERVER: Data read: HR=101.5, SpO2=70.0, valid=1[0m
+[0;32mI (136302) HTTP_SERVER: Response sent: {"heart_rate":101.5,"spo2":70.0,"valid":true,"last_update":135826,"accel":{"x":-0.077,"y":0.057,"z":1.019},"gyro":{"x":1.405,"y":6.794,"z":-0.893},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (136815) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (136815) HTTP_SERVER: Data read: HR=101.5, SpO2=70.0, valid=1[0m
+[0;32mI (136818) HTTP_SERVER: Response sent: {"heart_rate":101.5,"spo2":70.0,"valid":true,"last_update":136341,"accel":{"x":-0.073,"y":0.058,"z":1.023},"gyro":{"x":1.557,"y":6.771,"z":-0.924},"mpu_temp":44.56,"mpu_valid":true} (len=181)[0m
+[0;32mI (137325) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (137326) HTTP_SERVER: Data read: HR=85.6, SpO2=70.0, valid=1[0m
+[0;32mI (137328) HTTP_SERVER: Response sent: {"heart_rate":85.6,"spo2":70.0,"valid":true,"last_update":136855,"accel":{"x":-0.075,"y":0.053,"z":1.019},"gyro":{"x":1.542,"y":6.840,"z":-0.718},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (137834) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (137835) HTTP_SERVER: Data read: HR=85.6, SpO2=70.0, valid=1[0m
+[0;32mI (137838) HTTP_SERVER: Response sent: {"heart_rate":85.6,"spo2":70.0,"valid":true,"last_update":137367,"accel":{"x":-0.068,"y":0.056,"z":1.022},"gyro":{"x":1.504,"y":6.771,"z":-0.908},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (138346) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (138347) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (138350) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":137874,"accel":{"x":-0.077,"y":0.053,"z":1.019},"gyro":{"x":1.557,"y":6.702,"z":-0.863},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (138760) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (138760) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (138765) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":138285,"accel":{"x":-0.074,"y":0.059,"z":1.026},"gyro":{"x":1.626,"y":6.725,"z":-0.931},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (139371) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (139372) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (139375) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":138902,"accel":{"x":-0.073,"y":0.057,"z":1.013},"gyro":{"x":1.534,"y":6.779,"z":-0.916},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (139780) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (139780) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (139783) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":139310,"accel":{"x":-0.074,"y":0.058,"z":1.020},"gyro":{"x":1.618,"y":6.718,"z":-0.832},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (139985) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (139985) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (139988) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":139520,"accel":{"x":-0.074,"y":0.053,"z":1.024},"gyro":{"x":1.573,"y":6.786,"z":-0.763},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (140292) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (140292) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (140295) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":139823,"accel":{"x":-0.073,"y":0.053,"z":1.018},"gyro":{"x":1.351,"y":6.924,"z":-0.885},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (140804) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (140804) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (140807) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":140332,"accel":{"x":-0.058,"y":0.010,"z":1.034},"gyro":{"x":1.122,"y":7.855,"z":-0.908},"mpu_temp":44.61,"mpu_valid":true} (len=180)[0m
+[0;32mI (141320) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (141320) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (141323) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":140850,"accel":{"x":-0.073,"y":0.055,"z":1.021},"gyro":{"x":1.565,"y":6.748,"z":-0.779},"mpu_temp":44.56,"mpu_valid":true} (len=180)[0m
+[0;32mI (141832) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (141832) HTTP_SERVER: Data read: HR=74.7, SpO2=70.0, valid=1[0m
+[0;32mI (141835) HTTP_SERVER: Response sent: {"heart_rate":74.7,"spo2":70.0,"valid":true,"last_update":141361,"accel":{"x":-0.069,"y":0.058,"z":1.016},"gyro":{"x":1.718,"y":6.557,"z":-0.893},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (142340) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (142340) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (142343) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":141877,"accel":{"x":-0.077,"y":0.055,"z":1.021},"gyro":{"x":1.489,"y":6.863,"z":-0.840},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (142852) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (142852) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (142855) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":142382,"accel":{"x":-0.075,"y":0.049,"z":1.023},"gyro":{"x":1.450,"y":6.931,"z":-0.863},"mpu_temp":44.62,"mpu_valid":true} (len=180)[0m
+[0;32mI (143364) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (143364) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (143367) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":142899,"accel":{"x":-0.077,"y":0.061,"z":1.022},"gyro":{"x":1.817,"y":6.542,"z":-0.832},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (143775) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (143775) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (143778) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":143304,"accel":{"x":-0.071,"y":0.043,"z":1.015},"gyro":{"x":1.321,"y":7.053,"z":-0.985},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (144287) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (144288) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (144291) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":143816,"accel":{"x":-0.055,"y":0.059,"z":1.036},"gyro":{"x":1.611,"y":7.115,"z":-1.115},"mpu_temp":44.61,"mpu_valid":true} (len=180)[0m
+[0;32mI (144798) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (144798) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (144801) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":144333,"accel":{"x":-0.086,"y":0.055,"z":1.023},"gyro":{"x":1.748,"y":6.740,"z":-0.962},"mpu_temp":44.60,"mpu_valid":true} (len=180)[0m
+[0;32mI (145311) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (145311) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (145314) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":144839,"accel":{"x":-0.075,"y":0.062,"z":1.020},"gyro":{"x":1.794,"y":6.649,"z":-0.908},"mpu_temp":44.61,"mpu_valid":true} (len=180)[0m
+[0;32mI (145821) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (145822) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (145825) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":145359,"accel":{"x":-0.080,"y":0.054,"z":1.021},"gyro":{"x":1.481,"y":6.847,"z":-0.832},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (146335) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (146335) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (146339) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":145863,"accel":{"x":-0.073,"y":0.056,"z":1.026},"gyro":{"x":1.565,"y":6.718,"z":-0.863},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (146846) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (146846) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (146849) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":146381,"accel":{"x":-0.073,"y":0.055,"z":1.020},"gyro":{"x":1.519,"y":6.794,"z":-0.740},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (147357) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (147358) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (147361) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":146887,"accel":{"x":-0.077,"y":0.054,"z":1.019},"gyro":{"x":1.473,"y":6.824,"z":-0.908},"mpu_temp":44.60,"mpu_valid":true} (len=180)[0m
+[0;32mI (147870) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (147870) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (147873) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":147403,"accel":{"x":-0.072,"y":0.054,"z":1.016},"gyro":{"x":1.489,"y":6.817,"z":-0.878},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (148285) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (148285) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (148288) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":147810,"accel":{"x":-0.074,"y":0.057,"z":1.020},"gyro":{"x":1.695,"y":6.763,"z":-0.893},"mpu_temp":44.61,"mpu_valid":true} (len=180)[0m
+[0;32mI (148793) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (148793) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (148796) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":148326,"accel":{"x":-0.076,"y":0.054,"z":1.022},"gyro":{"x":1.603,"y":6.763,"z":-0.832},"mpu_temp":44.58,"mpu_valid":true} (len=180)[0m
+[0;32mI (149306) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (149306) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (149309) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":148841,"accel":{"x":-0.078,"y":0.054,"z":1.021},"gyro":{"x":1.420,"y":6.817,"z":-0.885},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m
+[0;32mI (149819) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (149819) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (149822) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":149348,"accel":{"x":-0.074,"y":0.057,"z":1.022},"gyro":{"x":1.664,"y":6.718,"z":-0.779},"mpu_temp":44.62,"mpu_valid":true} (len=180)[0m
+[0;32mI (149864) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (149865) HTTP_SERVER: Data read: HR=87.4, SpO2=70.0, valid=1[0m
+[0;32mI (149868) HTTP_SERVER: Response sent: {"heart_rate":87.4,"spo2":70.0,"valid":true,"last_update":149456,"accel":{"x":-0.073,"y":0.054,"z":1.022},"gyro":{"x":1.611,"y":6.702,"z":-0.794},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (150327) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (150328) HTTP_SERVER: Data read: HR=77.2, SpO2=70.0, valid=1[0m
+[0;32mI (150331) HTTP_SERVER: Response sent: {"heart_rate":77.2,"spo2":70.0,"valid":true,"last_update":149867,"accel":{"x":-0.075,"y":0.056,"z":1.023},"gyro":{"x":1.450,"y":6.847,"z":-0.824},"mpu_temp":44.60,"mpu_valid":true} (len=180)[0m
+[0;32mI (150841) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (150841) HTTP_SERVER: Data read: HR=77.2, SpO2=70.0, valid=1[0m
+[0;32mI (150844) HTTP_SERVER: Response sent: {"heart_rate":77.2,"spo2":70.0,"valid":true,"last_update":150372,"accel":{"x":-0.072,"y":0.059,"z":1.027},"gyro":{"x":1.565,"y":6.733,"z":-0.977},"mpu_temp":44.60,"mpu_valid":true} (len=180)[0m
+[0;32mI (151351) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (151352) HTTP_SERVER: Data read: HR=71.7, SpO2=70.0, valid=1[0m
+[0;32mI (151355) HTTP_SERVER: Response sent: {"heart_rate":71.7,"spo2":70.0,"valid":true,"last_update":150889,"accel":{"x":-0.072,"y":0.057,"z":1.024},"gyro":{"x":1.618,"y":6.733,"z":-0.786},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (151866) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (151866) HTTP_SERVER: Data read: HR=71.7, SpO2=70.0, valid=1[0m
+[0;32mI (151869) HTTP_SERVER: Response sent: {"heart_rate":71.7,"spo2":70.0,"valid":true,"last_update":151394,"accel":{"x":-0.079,"y":0.051,"z":1.018},"gyro":{"x":1.534,"y":6.870,"z":-0.817},"mpu_temp":44.60,"mpu_valid":true} (len=180)[0m
+[0;32mI (152375) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (152376) HTTP_SERVER: Data read: HR=71.7, SpO2=70.0, valid=1[0m
+[0;32mI (152379) HTTP_SERVER: Response sent: {"heart_rate":71.7,"spo2":70.0,"valid":true,"last_update":151911,"accel":{"x":-0.068,"y":0.050,"z":1.009},"gyro":{"x":1.527,"y":6.802,"z":-1.008},"mpu_temp":44.59,"mpu_valid":true} (len=180)[0m
+[0;32mI (152785) HTTP_SERVER: Sensor handler called[0m
+[0;32mI (152785) HTTP_SERVER: Data read: HR=71.7, SpO2=70.0, valid=1[0m
+[0;32mI (152788) HTTP_SERVER: Response sent: {"heart_rate":71.7,"spo2":70.0,"valid":true,"last_update":152316,"accel":{"x":-0.073,"y":0.053,"z":1.024},"gyro":{"x":1.527,"y":6.817,"z":-0.977},"mpu_temp":44.57,"mpu_valid":true} (len=180)[0m

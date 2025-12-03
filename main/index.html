@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ESP32-C3 Health Monitor</title>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>ESP32-C3 Health Monitor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -107,6 +107,37 @@
             overflow: hidden;
         }
 
+        .heart-rate-box {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            color: #fff;
+        }
+
+        .heart-rate-box::before,
+        .heart-rate-box::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            width: 20px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px 50px 0 0;
+        }
+
+        .heart-rate-box::before {
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart-rate-box::after {
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .spo2-box {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        }
+
         .health-value {
             font-size: 3em;
             font-weight: 700;
@@ -129,14 +160,26 @@
             text-align: center;
         }
 
-        .chart-container {
-            position: relative;
-            height: 350px;
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             margin: 25px 0;
+        }
+
+        .chart-card {
+            position: relative;
+            height: 320px;
             background: rgba(255,255,255,0.02);
             border-radius: 15px;
             padding: 20px;
             border: 1px solid var(--border-color);
+        }
+
+        .chart-card h4 {
+            margin-bottom: 12px;
+            color: var(--accent-color);
+            font-weight: 600;
         }
 
         .connection-status {
@@ -252,6 +295,52 @@
             border-radius: 999px;
         }
 
+        .alert-list-card {
+            margin-top: 20px;
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+        }
+
+        .alert-list-card h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--warning-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert-list {
+            list-style: none;
+            max-height: 140px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .alert-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(148, 163, 184, 0.4);
+            font-size: 13px;
+        }
+
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .alert-msg {
+            color: var(--text-secondary);
+        }
+
+        .alert-time {
+            color: var(--accent-color);
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+
         .info-item {
             text-align: center;
         }
@@ -323,8 +412,8 @@
                 font-size: 2.5em;
             }
             
-            .chart-container {
-                height: 250px;
+            .charts-grid {
+                grid-template-columns: 1fr;
             }
             
             .device-info {
@@ -356,11 +445,11 @@
             <h3><i class="fas fa-heartbeat"></i> Health Monitor (MAX30100)</h3>
             
             <div class="health-display">
-                <div class="health-value-box">
+                <div class="health-value-box heart-rate-box">
                     <div class="health-value" id="heartRate">--</div>
                     <div class="health-unit">BPM</div>
                 </div>
-                <div class="health-value-box">
+                <div class="health-value-box spo2-box">
                     <div class="health-value" id="spo2Value">--</div>
                     <div class="health-unit">SpO2 %</div>
                 </div>
@@ -385,8 +474,15 @@
                 </div>
             </div>
 
-            <div class="chart-container">
-                <canvas id="healthChart"></canvas>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h4><i class="fas fa-chart-line"></i> Heart Rate Trend</h4>
+                    <canvas id="heartChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h4><i class="fas fa-wave-square"></i> SpO2 Trend</h4>
+                    <canvas id="spo2Chart"></canvas>
+                </div>
             </div>
 
             <div class="device-info">
@@ -443,6 +539,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="alert-list-card">
+                    <h4><i class="fas fa-bell"></i> Lịch sử cảnh báo</h4>
+                    <ul id="alertList" class="alert-list">
+                        <li class="alert-item">
+                            <span class="alert-msg">Chưa có cảnh báo nào</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -454,7 +558,8 @@
 
     <script>
         let deviceIP = '';
-        let healthChart;
+        let heartRateChart;
+        let spo2Chart;
         let heartRateData = [];
         let spo2Data = [];
         let timeLabels = [];
@@ -464,17 +569,22 @@
 
         // 3D motion visualization (Three.js)
         let motionScene, motionCamera, motionRenderer, motionCube;
-        let lastAccel = { x: 0, y: 0, z: 1 };
+        let targetRotation = { x: 0, z: 0 };
+        let currentRotation = { x: 0, z: 0 };
+        let motionCalibration = null;
+        const rotationSmoothing = 0.15;
+        let alertPollInterval = null;
 
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Page loaded, initializing...');
             updateConnectionStatus('connected', 'Đã kết nối');
             getDeviceIP();
-            initChart();
+            initCharts();
             initPerformanceControls();
             initMotion3D();
             startHealthUpdates();
+            startAlertPolling();
             console.log('Initialization complete');
         });
 
@@ -511,15 +621,14 @@
         }
 
         // Khởi tạo đồ thị
-        function initChart() {
-            const ctx = document.getElementById('healthChart').getContext('2d');
-            
+        function initCharts() {
             Chart.defaults.font.family = 'Segoe UI';
             Chart.defaults.font.size = 12;
             Chart.defaults.color = '#cbd5e1';
-            Chart.defaults.plugins.legend.display = true;
-            
-            healthChart = new Chart(ctx, {
+            Chart.defaults.plugins.legend.display = false;
+
+            const hrCtx = document.getElementById('heartChart').getContext('2d');
+            heartRateChart = new Chart(hrCtx, {
                 type: 'line',
                 data: {
                     labels: timeLabels,
@@ -530,21 +639,9 @@
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
                         borderWidth: 3,
                         fill: true,
-                        tension: 0.2,
+                        tension: 0.25,
                         pointRadius: 0,
-                        pointHoverRadius: 6,
-                        yAxisID: 'y'
-                    }, {
-                        label: 'SpO2 (%)',
-                        data: spo2Data,
-                        borderColor: '#06b6d4',
-                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.2,
-                        pointRadius: 0,
-                        pointHoverRadius: 6,
-                        yAxisID: 'y1'
+                        pointHoverRadius: 5,
                     }]
                 },
                 options: {
@@ -554,19 +651,16 @@
                     interaction: { intersect: false, mode: 'index' },
                     scales: {
                         y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
                             beginAtZero: false,
                             min: 40,
-                            max: 120,
+                            max: 130,
                             title: {
                                 display: true,
-                                text: 'Heart Rate (BPM)',
+                                text: 'BPM',
                                 color: '#ef4444'
                             },
                             grid: {
-                                color: 'rgba(203, 213, 225, 0.1)',
+                                color: 'rgba(239,68,68,0.15)',
                                 drawBorder: false
                             },
                             ticks: {
@@ -574,19 +668,57 @@
                                 font: { size: 12 }
                             }
                         },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
+                        x: {
+                            grid: {
+                                color: 'rgba(203,213,225,0.08)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#cbd5e1',
+                                font: { size: 11 },
+                                maxTicksLimit: 6
+                            }
+                        }
+                    }
+                }
+            });
+
+            const spoCtx = document.getElementById('spo2Chart').getContext('2d');
+            spo2Chart = new Chart(spoCtx, {
+                type: 'line',
+                data: {
+                    labels: timeLabels,
+                    datasets: [{
+                        label: 'SpO2 (%)',
+                        data: spo2Data,
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.15)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.25,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 0 },
+                    interaction: { intersect: false, mode: 'index' },
+                    scales: {
+                        y: {
                             beginAtZero: false,
                             min: 70,
                             max: 100,
                             title: {
                                 display: true,
-                                text: 'SpO2 (%)',
+                                text: '% SpO2',
                                 color: '#06b6d4'
                             },
-                            grid: { drawOnChartArea: false },
+                            grid: {
+                                color: 'rgba(6,182,212,0.15)',
+                                drawBorder: false
+                            },
                             ticks: {
                                 color: '#06b6d4',
                                 font: { size: 12 }
@@ -594,25 +726,14 @@
                         },
                         x: {
                             grid: {
-                                color: 'rgba(203, 213, 225, 0.1)',
+                                color: 'rgba(203,213,225,0.08)',
                                 drawBorder: false
                             },
                             ticks: {
                                 color: '#cbd5e1',
                                 font: { size: 11 },
-                                maxTicksLimit: 8
+                                maxTicksLimit: 6
                             }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            backgroundColor: 'rgba(30, 41, 59, 0.9)',
-                            titleColor: '#06b6d4',
-                            bodyColor: '#f8fafc',
-                            borderColor: '#06b6d4',
-                            borderWidth: 1,
-                            cornerRadius: 8,
-                            displayColors: false
                         }
                     }
                 }
@@ -638,6 +759,15 @@
         function startHealthUpdates() {
             updateHealth();
             updateInterval = setInterval(updateHealth, updateRate);
+        }
+
+        function startAlertPolling() {
+            // Poll alerts riêng, tần số thấp hơn để đỡ tải
+            fetchAlerts();
+            if (alertPollInterval) {
+                clearInterval(alertPollInterval);
+            }
+            alertPollInterval = setInterval(fetchAlerts, 3000);
         }
 
         // Khởi động lại cập nhật health
@@ -761,6 +891,16 @@
             // Simple animation loop
             function animate() {
                 requestAnimationFrame(animate);
+
+                // Easing để chuyển động mượt hơn, giảm giật
+                currentRotation.x += (targetRotation.x - currentRotation.x) * rotationSmoothing;
+                currentRotation.z += (targetRotation.z - currentRotation.z) * rotationSmoothing;
+
+                if (motionCube) {
+                    motionCube.rotation.x = currentRotation.x;
+                    motionCube.rotation.z = currentRotation.z;
+                }
+
                 motionRenderer.render(motionScene, motionCamera);
             }
             animate();
@@ -825,21 +965,89 @@
 
             // Cập nhật hướng cube 3D dựa trên vector trọng lực từ accel
             if (motionCube) {
+
                 // Chuẩn hóa vector accel
-                const len = Math.sqrt(ax * ax + ay * ay + az * az) || 1.0;
+                const len = Math.max(Math.sqrt(ax * ax + ay * ay + az * az), 0.0001);
                 const nx = ax / len;
                 const ny = ay / len;
                 const nz = az / len;
 
-                lastAccel = { x: nx, y: ny, z: nz };
+                // Công thức chuẩn MPU6050
+                const roll  = Math.atan2(ny, nz);  // xoay theo trục Z trong Three.js (roll)
+                const pitch = Math.atan2(-nx, Math.sqrt(ny * ny + nz * nz)); // xoay theo trục X (pitch)
 
-                // Gần đúng: pitch & roll từ accel (giả sử z ~ trọng lực)
-                const pitch = Math.atan2(-nx, Math.sqrt(ny * ny + nz * nz)); // quay quanh Y
-                const roll = Math.atan2(ny, nz); // quay quanh X
+                // Lấy mốc đứng yên
+                if (!motionCalibration) {
+                    motionCalibration = { roll, pitch };
+                }
 
-                motionCube.rotation.x = roll;
-                motionCube.rotation.z = pitch;
+                const relativeRoll  = roll  - motionCalibration.roll;
+                const relativePitch = pitch - motionCalibration.pitch;
+
+                // Mapping chuẩn sang Three.js
+                targetRotation.x = relativePitch;     // pitch → xoay X
+                targetRotation.z = relativeRoll;     // roll  → xoay Z (ĐẢO dấu để đúng hướng)
+                
+            } else {
+                motionCalibration = null;
             }
+
+        }
+
+        // Lấy danh sách cảnh báo từ ESP32
+        function fetchAlerts() {
+            fetch('/alerts')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && Array.isArray(data.alerts)) {
+                        renderAlertList(data.alerts);
+                    }
+                })
+                .catch(err => {
+                    console.warn('Failed to fetch alerts:', err);
+                });
+        }
+
+        // Hiển thị danh sách cảnh báo
+        function renderAlertList(alerts) {
+            const listEl = document.getElementById('alertList');
+            if (!listEl) return;
+
+            listEl.innerHTML = '';
+
+            if (!alerts.length) {
+                const li = document.createElement('li');
+                li.className = 'alert-item';
+                li.innerHTML = '<span class="alert-msg">Chưa có cảnh báo nào</span>';
+                listEl.appendChild(li);
+                return;
+            }
+
+            alerts.forEach(alert => {
+                const li = document.createElement('li');
+                li.className = 'alert-item';
+
+                const msgSpan = document.createElement('span');
+                msgSpan.className = 'alert-msg';
+                msgSpan.textContent = alert.msg || '';
+
+                const timeSpan = document.createElement('span');
+                timeSpan.className = 'alert-time';
+                // t là ms từ khi boot; hiển thị giây tương đối
+                if (typeof alert.t === 'number') {
+                    const seconds = (alert.t / 1000).toFixed(1);
+                    timeSpan.textContent = `${seconds}s`;
+                }
+
+                li.appendChild(msgSpan);
+                li.appendChild(timeSpan);
+                listEl.appendChild(li);
+            });
         }
 
         // Cập nhật dữ liệu đồ thị
@@ -854,11 +1062,15 @@
                 timeLabels.shift();
             }
             
-            if (healthChart && heartRateData.length > 1) {
-                healthChart.data.labels = timeLabels;
-                healthChart.data.datasets[0].data = heartRateData;
-                healthChart.data.datasets[1].data = spo2Data;
-                healthChart.update('none');
+            if (heartRateChart && heartRateData.length > 1) {
+                heartRateChart.data.labels = timeLabels;
+                heartRateChart.data.datasets[0].data = heartRateData;
+                heartRateChart.update('none');
+            }
+            if (spo2Chart && spo2Data.length > 1) {
+                spo2Chart.data.labels = timeLabels;
+                spo2Chart.data.datasets[0].data = spo2Data;
+                spo2Chart.update('none');
             }
         }
 
@@ -870,11 +1082,15 @@
                 spo2Data.splice(0, excess);
                 timeLabels.splice(0, excess);
                 
-                if (healthChart) {
-                    healthChart.data.labels = timeLabels;
-                    healthChart.data.datasets[0].data = heartRateData;
-                    healthChart.data.datasets[1].data = spo2Data;
-                    healthChart.update('none');
+                if (heartRateChart) {
+                    heartRateChart.data.labels = timeLabels;
+                    heartRateChart.data.datasets[0].data = heartRateData;
+                    heartRateChart.update('none');
+                }
+                if (spo2Chart) {
+                    spo2Chart.data.labels = timeLabels;
+                    spo2Chart.data.datasets[0].data = spo2Data;
+                    spo2Chart.update('none');
                 }
             }
         }
