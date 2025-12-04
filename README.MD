@@ -177,6 +177,37 @@ Trang web định kỳ gọi `fetch('/sensor')`:
 - Cập nhật `accel/gyro/temp` và xoay cube 3D tương ứng.
 - Dùng `maxDataPoints` để giới hạn độ dài buffer trên trình duyệt (không lưu vĩnh viễn).
 
+### 4.2. Endpoint `/alerts`
+
+Được cung cấp bởi `http_server_app.c`, trả về JSON tương ứng với `alert_event_t`:
+
+```json
+{
+  "alerts": [
+    {
+      "t": 89284,
+      "msg": "VA ĐẬP - Chấn động mạnh!"
+    },
+    {
+      "t": 100041,
+      "msg": "VA ĐẬP - Chấn động mạnh!"
+    },
+    {
+      "t": 110273,
+      "msg": "ĐANG CHẠY - Hoạt động mạnh"
+    },
+    {
+      "t": 122717,
+      "msg": "VA ĐẬP - Chấn động mạnh!"
+    }
+  ]
+}
+```
+
+Trang web định kỳ gọi `fetch('/alerts')`:
+
+- Hiển thị danh sách số lần va đập, ngã,....
+
 ---
 
 ## 5. Build, Flash & Chạy
@@ -294,20 +325,13 @@ if (mpu6050_read_data(&data) == ESP_OK) {
 - URI:
   - `GET /` → trả về nội dung `index.html` nhúng trong flash.
   - `GET /sensor` → đọc `shared_data` (qua `data_mutex`) và trả JSON.
+  - `GET /alerts` → đọc `alert_data` và trả JSON.
 
 ---
 
-## 7. Gợi ý mở rộng
-
-- Lưu lịch sử HR/SpO2/MPU trên ESP (ring buffer) và cung cấp endpoint `/history`.
-- Thêm phân loại hoạt động (rest, walk, run, fall, tremor) dựa trên MPU6050 + logic hiện có.
-- Gửi cảnh báo qua MQTT/HTTP tới server bên ngoài (cloud).
-- Cấu hình WiFi từ web (captive portal / cấu hình mềm).
-- Thêm trang cấu hình ngưỡng cảnh báo cho SpO2, HR, motion.
-
 ---
 
-## 8. Xử lý lỗi thường gặp
+## 7. Xử lý lỗi thường gặp
 
 - **I2C Communication Failed**
   - Kiểm tra SDA/SCL, điện trở pull-up, nguồn 3.3V.
@@ -328,7 +352,7 @@ if (mpu6050_read_data(&data) == ESP_OK) {
 
 ---
 
-## 9. License & Credits
+## 8. License & Credits
 
 - **License**: MIT – Tự do sử dụng cho dự án cá nhân và thương mại.
 - Thiết kế cho **ESP32-C3 Mini-1 + ESP-IDF v5.5**, kiến trúc chia component rõ ràng, dễ mở rộng và tái sử dụng.

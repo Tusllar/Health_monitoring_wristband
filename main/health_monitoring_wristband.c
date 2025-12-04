@@ -17,6 +17,10 @@
 #include "ssd1306.h"
 #include "esp32c3_wifi.h"
 #include "http_server_app.h"
+// #include "mqtt_client_app.h"
+
+
+
 
 
 static const char *TAG = "MAIN";
@@ -546,8 +550,11 @@ void app_main(void)
     ESP_LOGI(TAG, "ESP32-C3 Health Monitor Starting");
     ESP_LOGI(TAG, "=================================");
 
+
     ESP_LOGI(TAG, "Initializing WiFi...");
     wifi_init_sta();
+
+
 
     data_mutex = xSemaphoreCreateMutex();
 

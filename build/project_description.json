@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "health_monitoring_wristband",
-    "project_version":    "3d73c22-dirty",
+    "project_version":    "a0a979e-dirty",
     "project_path":       "/home/tu/esp/health_monitoring_wristband",
     "idf_path":           "/home/tu/esp/esp-idf",
     "build_dir":          "/home/tu/esp/health_monitoring_wristband/build",
@@ -11,7 +11,7 @@
     "app_elf":            "health_monitoring_wristband.elf",
     "app_bin":            "health_monitoring_wristband.bin",
     "build_type":         "flash_app",
-    "git_revision":       "v5.5.1-418-gf1a1df9b2e",
+    "git_revision":       "v5.5.1-418-gf1a1df9b2e-dirty",
     "target":             "esp32c3",
     "rev":                "",
     "min_rev":            "3",

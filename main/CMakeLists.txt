@@ -12,4 +12,5 @@ idf_component_register(
         ssd1306
         esp32c3_wifi
         http_server_app
+
 )

@@ -1,0 +1,27 @@
+Command: ninja all
+[1/12] Performing build step for 'bootloader'
+[1/1] cd /home/tu/esp/health_monitoring_wristband/build/bootloader/esp-idf/esptool_py && /home/tu/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/tu/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/tu/esp/health_monitoring_wristband/build/bootloader/bootloader.bin
+Bootloader binary size 0x5210 bytes. 0x2df0 bytes (36%) free.
+[2/10] Building C object esp-idf/mqtt_client_app/CMakeFiles/__idf_mqtt_client_app.dir/mqtt_client_app.c.obj
+[3/10] Linking C static library esp-idf/mqtt_client_app/libmqtt_client_app.a
+[4/10] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/health_monitoring_wristband.c.obj
+/home/tu/esp/health_monitoring_wristband/main/health_monitoring_wristband.c: In function 'buzzer_task':
+/home/tu/esp/health_monitoring_wristband/main/health_monitoring_wristband.c:435:17: warning: variable 'last_motion_alert' set but not used [-Wunused-but-set-variable]
+  435 |     const char *last_motion_alert = NULL;
+      |                 ^~~~~~~~~~~~~~~~~
+[5/10] Linking C static library esp-idf/main/libmain.a
+[6/10] Generating esp-idf/esp_system/ld/sections.ld
+[7/10] Building C object CMakeFiles/health_monitoring_wristband.elf.dir/project_elf_src_esp32c3.c.obj
+[8/10] Linking CXX executable health_monitoring_wristband.elf
+[9/10] Generating binary image from built executable
+esptool.py v4.10.0
+Creating esp32c3 image...
+Merged 1 ELF section
+Successfully created esp32c3 image.
+Generated /home/tu/esp/health_monitoring_wristband/build/health_monitoring_wristband.bin
+[10/10] cd /home/tu/esp/health_monitoring_wristband/build/esp-idf/esptool_py && /home/tu/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/tu/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/tu/esp/health_monitoring_wristband/build/partition_table/partition-table.bin /home/tu/esp/health_monitoring_wristband/build/health_monitoring_wristband.bin
+FAILED: esp-idf/esptool_py/CMakeFiles/app_check_size /home/tu/esp/health_monitoring_wristband/build/esp-idf/esptool_py/CMakeFiles/app_check_size 
+cd /home/tu/esp/health_monitoring_wristband/build/esp-idf/esptool_py && /home/tu/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/tu/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/tu/esp/health_monitoring_wristband/build/partition_table/partition-table.bin /home/tu/esp/health_monitoring_wristband/build/health_monitoring_wristband.bin
+Error: app partition is too small for binary health_monitoring_wristband.bin size 0x102a20:
+  - Part 'factory' 0/0 @ 0x10000 size 0x100000 (overflow 0x2a20)
+ninja: build stopped: subcommand failed.
