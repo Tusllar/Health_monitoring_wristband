@@ -10,7 +10,9 @@ Dự án vòng tay giám sát sức khỏe thời gian thực sử dụng **ESP3
   - Biểu đồ nhịp tim & SpO2 theo thời gian
   - Trạng thái kết nối & thông tin thiết bị
   - **Mô phỏng 3D hướng cổ tay** dựa trên dữ liệu MPU6050
-
+- Truy cập **App** được xây dựng từ dự án [Health_monitor_app](https://github.com/Tusllar/Health_monitor_app.git) để xem:
+  - Biểu đồ nhịp tim & SpO2 theo thời gian
+  - Trạng thái kết nối & thông tin thiết bị
 ---
 
 ## 1. Phần cứng
